@@ -1,0 +1,67 @@
+:root {
+  --primary-color: #070a29;
+  --secondary-color: #070a29;
+  --shape-circle: radial-gradient(34.98% 34.98% at 50% 50%, #725bda 0, rgba(6, 19, 45, 0) 100%);
+}
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/conthrax-sb.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-color);  
+  font-family: 'CustomFont', sans-serif;
+}
+.dark body{
+  background-color: white;  
+}
+.navbar-color{
+  background-color: var(--primary-color);
+}
+
+.app-main::after{
+  content: "";
+  position: absolute;
+  top: -120px;
+  right: -25%;
+  width: 1000px;
+  height: 1000px;
+  background: var(--shape-circle)
+}
+.app-main::before{
+  content: "";
+  position: absolute;
+  top: 650px;
+  left: -20%;
+  width: 900px;
+  height: 1000px;
+  background: var(--shape-circle)
+}
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-400%);
+  }
+}
+
+.marquee {
+  animation: marquee 25s linear infinite;
+}
+@keyframes marquee2 {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-400%);
+  }
+}
+
+.marquee2 {
+  animation: marquee2 25s linear infinite;
+}
