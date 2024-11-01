@@ -6,6 +6,5 @@ const router = express.Router();
 
 router.get("/:id", protectRoute, getMessages);
 router.post("/send/:id", protectRoute, upload.single('file'), sendMessage);
-// router.post("/sendAuramicAi/:id", upload.single('file'), sendAuramicAiMessage);
 
 export default router;

@@ -11,7 +11,7 @@ const io = new Server(server, {
         credentials: true
     }
 });
-// https://auramic-chatting.onrender.com
+
 let userSocketMap = {}; // {userid: socket.id}
 
 export const getReceiverSocketId = (receiverId) => {
@@ -63,10 +63,6 @@ io.on("connection", (socket) => {
     socket.on("peer:nego:done", ({ to, ans }) => {
         console.log("peer:nego:done", ans);
         io.to(to).emit("peer:nego:final", { from: socket.id, ans });
-    });
-
-    socket.on("call:accept:calley", ({ to }) => {
-        io.to(to).emit("call:accept:calley", { from: socket.id });
     });
 
     socket.on('call:end', ({ to }) => {

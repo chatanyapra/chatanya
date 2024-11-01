@@ -57,6 +57,8 @@ export const sendMessage = asyncHandler(async (req, res) => {
         console.log("Error in Message Controller", error.message);
         res.status(400).json({ message: "Internal Server Error!" });
     }
+    // const receiverId = req.params.id;
+    // res.status(201).json({message: `Message sended! ${receiverId}`});
 })
 
 export const getMessages = asyncHandler(async (req, res) => {

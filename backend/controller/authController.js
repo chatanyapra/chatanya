@@ -6,8 +6,8 @@ import generateTokenAndSetCookie from "../securityToken/generateToken.js";
 // signup public
 export const createUser = asyncHandler(async (req, res) => {
     try {
-        const {username, fullname, password, confirmPassword, gender} = req.body;
-        if(!username || !fullname || !password || !confirmPassword || !gender){
+        const {username, password, confirmPassword} = req.body;
+        if(!username || !password || !confirmPassword){
             return res.status(400).json({error: "All fields are mandatory!"});
         }
         if(confirmPassword !== password){
@@ -18,18 +18,11 @@ export const createUser = asyncHandler(async (req, res) => {
             res.status(400).json({error: "User already exist!"});
         }
         
-        // profile pics
-        const boyProfilePic = `https://avatar.iran.liara.run/public/boy/?username=${username}`;
-        const girlProfilePic = `https://avatar.iran.liara.run/public/girl/?username=${username}`;
-        // password hashing
         const hashedPassword= await bcrypt.hash(password, 10);
         console.log(hashedPassword);
         const newUser= new User({
-            fullname,
             username, 
             password: hashedPassword,
-            gender,
-            profilePic: gender === "male" ? boyProfilePic : girlProfilePic
         })
         if(newUser){
             // generate JWT token-----
@@ -37,9 +30,7 @@ export const createUser = asyncHandler(async (req, res) => {
             await newUser.save();
             res.status(201).json({
                 _id: newUser._id,
-                username: newUser.username,
-                fullname: newUser.fullname,
-                profilePic: newUser.profilePic
+                username: newUser.username
             })
         }else{
             res.status(400).json({error: "Invalid user data"});
@@ -65,9 +56,7 @@ export const loginUser = asyncHandler(async (req, res) => {
 
         res.status(200).json({
             _id: user._id,
-            fullname: user.fullname,
             username: user.username,
-            profilePic: user.profilePic
         })
 
     } catch (error) {
