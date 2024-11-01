@@ -46,23 +46,21 @@ export const DataProvider = ({ children }) => {
         }
     };
 
-    // Refresh blogs function
     const refreshBlogs = async () => {
-        setLoading(true); // Set loading to true while fetching
-        await fetchBlogs(); // Fetch blogs
-        setLoading(false); // Set loading to false after fetching
+        setLoading(true);
+        await fetchBlogs(); 
+        setLoading(false);  
     };
 
-    // Refresh projects function
     const refreshProjects = async () => {
-        setLoading(true); // Set loading to true while fetching
-        await fetchProjects(); // Fetch projects
-        setLoading(false); // Set loading to false after fetching
+        setLoading(true);
+        await fetchProjects(); 
+        setLoading(false); 
     };
 
     useEffect(() => {
-        refreshBlogs(); // Fetch blogs on component mount
-        refreshProjects(); // Fetch projects on component mount
+        refreshBlogs();
+        refreshProjects(); 
     }, []);
 
     return (

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import backgroundLine from "../assets/images/background-line.png";
 import BlogCard from "./BlogCard";
 import { gsap } from "gsap";
+import { useDataContext } from '../context/DataContext';
 
 const BlogSection = () => {
     useEffect(() => {
@@ -43,10 +43,11 @@ const BlogSection = () => {
           });
         };
       }, []);
+
+      const { blogs } = useDataContext();
  
     return (
         <div className='w-full mx-auto flex flex-col relative blogsection-bg-design'>
-            <img src={backgroundLine} className='w-full h-full absolute -left-2 -right-14' alt="" />
             <div className='transparent-color px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6'>
                 <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
                     <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
@@ -54,18 +55,11 @@ const BlogSection = () => {
                 <i>Blogs</i>
             </div>
             <div className='flex w-full justify-around max-lg:flex-col md:flex-wrap max-md:px-1'>
-                <div className='blogCard '>
-                    <BlogCard />
+            {blogs.slice(0, 4).map((blog) => (
+                <div key={blog._id} className='blogCard'>
+                    <BlogCard blog={blog} src={"blogs"} />
                 </div>
-                <div className='blogCard '>
-                    <BlogCard />
-                </div>
-                {/* <div className='blogCard '>
-                    <BlogCard />
-                </div>
-                <div className='blogCard '>
-                    <BlogCard />
-                </div> */}
+            ))}
             </div>
             <div className='text-2xl text-white text-right mr-20 cursor-pointer hover:text-blue-700 z-10'>
                 See More...

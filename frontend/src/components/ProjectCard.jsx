@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types"; 
 import "./Project.css";
 
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, src }) => {
     return (
-        <div className="transparent-color card-container my-5 flex max-md:w-[95%] max-md:h-[300px] md:w-[550px] overflow-hidden relative group">
-            <div className="card-project md:w-[450px] max-md:w-[85%] max-md:h-[300px] ">
+        <div className="transparent-color card-container my-5 w-[550px] flex max-md:w-[95%] max-md:h-[350px] max-sm:h-[300px] mx-auto overflow-hidden relative group">
+            <div className="card-project md:w-[450px] max-md:w-[85%] max-md:h-[350px] max-sm:h-[300px] ">
                 <div className="img-content">
                     {project.images && project.images.length > 0 && (
                         <img src={project.images[0].url} alt={project.images[0].alt || 'Project Image'} />
@@ -24,7 +24,7 @@ const ProjectCard = ({ project }) => {
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                     <FaGithub className="text-4xl max-sm:text-3xl cursor-pointer" />
                 </a>
-                <Link to={`/projectedit/${project._id}`}>
+                <Link to={`/${src}/${project._id}`}>
                     <FaArrowUpRightFromSquare className="text-3xl max-sm:text-2xl cursor-pointer" />
                 </Link>
             </div>
@@ -34,6 +34,7 @@ const ProjectCard = ({ project }) => {
 
 // Define PropTypes for ProjectCard
 ProjectCard.propTypes = {
+    src: PropTypes.string.isRequired,
     project: PropTypes.shape({
         title: PropTypes.string.isRequired,
         shortDescription: PropTypes.string,

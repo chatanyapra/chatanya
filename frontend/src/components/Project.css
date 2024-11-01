@@ -97,7 +97,7 @@
   content: "";
   position: absolute;
   top: -1000px;
-  left: -480px;
+  right: -480px;
   width: 900px;
   height: 1000px;
   z-index: -10;

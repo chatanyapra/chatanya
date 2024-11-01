@@ -2,9 +2,10 @@ import { useState } from 'react';
 import './SignPage.css';
 import axios from 'axios';
 import { useAuthContext } from '../context/AuthContext';
+import { toast, Toaster } from 'react-hot-toast';
 
 const SignPage = () => {
-    const {setAuthUser} = useAuthContext();
+    const { setAuthUser } = useAuthContext();
     const [isActive, setIsActive] = useState(false);
     const [signupData, setSignupData] = useState({ username: '', confirmPassword: '', password: '' });
     const [loginData, setLoginData] = useState({ username: '', password: '' });
@@ -29,32 +30,65 @@ const SignPage = () => {
 
     // Handle signup submission
     const handleSignup = async () => {
+        const { username, password, confirmPassword } = signupData;
+
+        // Validation
+        if (!username || !password || !confirmPassword) {
+            toast.error("All fields are required.");
+            return;
+        }
+
+        if (password.length <= 5) {
+            toast.error("Password must be at least 5 characters long.");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            toast.error("Passwords do not match.");
+            return;
+        }
+
         try {
-            console.log(signupData);
-            
             const response = await axios.post('/api/auth/signup', signupData);
             console.log('Signup successful:', response.data);
             setAuthUser(response.data);
+            toast.success("Signup successful!");
         } catch (error) {
             console.error('Signup failed:', error);
+            toast.error(error.response.data.error);
         }
     };
 
     // Handle login submission
-    const handleLogin = async () => {
-        try {
-            console.log(loginData);
-            
-            const response = await axios.post('/api/auth/login', loginData);
-            console.log('Login successful:', response.data);
-            setAuthUser(response.data);
-        } catch (error) {
-            console.error('Login failed:', error);
-        }
-    };
+// Handle login submission
+const handleLogin = async () => {
+    const { username, password } = loginData;
+
+    // Validation
+    if (!username || !password) {
+        toast.error("Both fields are required.");
+        return;
+    }
+    if (password.length <= 5) {
+        toast.error("Password must be at least 5 characters long.");
+        return;
+    }
+
+    try {
+        const response = await axios.post('/api/auth/login', loginData);
+        console.log('Login successful:', response.data);
+        setAuthUser(response.data);
+        toast.success("Login successful!");
+    } catch (error) {
+        console.error('Login failed:', error);
+        toast.error(error.response.data.error);
+    }
+};
+
 
     return (
         <div className='z-10 h-screen w-full relative app-main dark:bg-white dark:text-white text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12' style={{ maxWidth: "1600px" }}>
+            <Toaster />
             <div className="page-body">
                 <div className={`main-container ${isActive ? 'active' : ''}`} id="main-container">
                     

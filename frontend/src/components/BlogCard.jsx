@@ -4,7 +4,7 @@ import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import "./About.css";
 
-const BlogCard = ({ blog }) => {
+const BlogCard = ({ blog, src }) => {
 
   const images = blog?.images.map(image => image.url) || []; // Map blog images to URL array
   const [mainImageIndex, setMainImageIndex] = useState(0); // Index for main image
@@ -15,7 +15,7 @@ const BlogCard = ({ blog }) => {
 
   return (
     <div className="flex justify-center items-center my-6 mx-auto w-full">
-      <div className="relative w-[600px] max-lg:w-[98%] h-[400px] max-sm:h-[300px]">
+      <div className="relative w-[550px] max-lg:w-[98%] h-[400px] max-sm:h-[300px]">
         {/* Main Image */}
         <div className="absolute top-0 left-0 w-4/5 h-5/6 transparent-color rounded-[40px] overflow-hidden">
           <img
@@ -48,7 +48,7 @@ const BlogCard = ({ blog }) => {
 
         {/* Blog Meta */}
         <div className="w-[18%] h-[52%] absolute right-0 top-0 rounded-3xl transparent-colorwhite text-white dark:text-black flex flex-col justify-around text-center py-2">
-          <Link to={`/blogedit/${blog._id}`}>
+          <Link to={`/${src}/${blog._id}`}>
               <FaArrowUpRightFromSquare className="text-3xl max-sm:text-2xl cursor-pointer mx-auto" />
           </Link>
           <div className="text-5xl font-bold mt-5 max-sm:text-3xl">1</div>
@@ -59,6 +59,7 @@ const BlogCard = ({ blog }) => {
   );
 };
 BlogCard.propTypes = {
+  src: PropTypes.string.isRequired,
   blog: PropTypes.shape({
       title: PropTypes.string.isRequired,
       shortDescription: PropTypes.string,

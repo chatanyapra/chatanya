@@ -263,7 +263,7 @@ const ProjectEdit = () => {
       </h1>
       <div className="flex w-full justify-around flex-wrap max-md:pl-4">
         {projects.map((project) => (
-          <ProjectCard key={project._id} project={project} />
+          <ProjectCard key={project._id} project={project} src={"projectedit"} />
         ))}
       </div>
     </div>

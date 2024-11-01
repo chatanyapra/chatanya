@@ -3,14 +3,13 @@ import ProjectCard from './ProjectCard';
 import backgroundLine from "../assets/images/background-line.png";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useDataContext } from '../context/DataContext';
 gsap.registerPlugin(ScrollTrigger);
 
 const Project = () => {
-  useEffect(() => {
-    // Grab all project cards
-    const cards = gsap.utils.toArray(".projectCard");
 
-    // Create animations for each card
+  useEffect(() => {
+    const cards = gsap.utils.toArray(".projectCard");
     const animations = cards.map((card, index) =>
       gsap.fromTo(
         card,
@@ -38,7 +37,6 @@ const Project = () => {
       )
     );
 
-    // Cleanup function to stop the animations and ScrollTriggers on page change
     return () => {
       animations.forEach((animation) => {
         if (animation.scrollTrigger) {
@@ -48,6 +46,8 @@ const Project = () => {
       });
     };
   }, []);
+  
+  const { projects } = useDataContext();
 
   return (
     <div className="w-full my-16 mx-auto flex flex-col relative project-card-bglighter">
@@ -64,18 +64,12 @@ const Project = () => {
         <i>Projects</i>
       </h1>
       <div className="flex w-full justify-around flex-wrap max-md:pl-4">
-        <div className="projectCard">
-          <ProjectCard />
-        </div>
-        <div className="projectCard">
-          <ProjectCard />
-        </div>
-        <div className="projectCard">
-          <ProjectCard />
-        </div>
-        <div className="projectCard">
-          <ProjectCard />
-        </div>
+        {projects.slice(0, 4).map((project) => (
+            <div key={project._id} className="projectCard">
+                <ProjectCard project={project} src={"work"} />
+            </div>
+        ))}
+
       </div>
       <div className="text-2xl text-white text-right mr-20 cursor-pointer hover:text-blue-700 z-10">
         See More...
