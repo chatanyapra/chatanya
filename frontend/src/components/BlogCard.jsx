@@ -21,6 +21,7 @@ const BlogCard = ({ blog, src }) => {
           <img
             src={images[mainImageIndex]}
             className="toggleImage1 w-full h-full object-fill hover:scale-150 hover:opacity-75 transition duration-500 ease-in-out"
+            loading="lazy"
             alt="Main"
           />
         </div>
@@ -40,7 +41,7 @@ const BlogCard = ({ blog, src }) => {
                 onClick={() => toggleImage(index)}
                 className="w-10 h-10 cursor-pointer bg-gray-100 rounded-full outline-gray-500 outline-dashed outline-2 outline-offset-2 overflow-hidden"
               >
-                <img src={image} className="toggleImage w-full h-full object-fill" alt={`Thumbnail ${index + 1}`} />
+                <img src={image} className="toggleImage w-full h-full object-fill" alt={`Thumbnail ${index + 1}`} loading="lazy" />
               </div>
             )
           ))}

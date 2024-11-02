@@ -4,6 +4,7 @@ import backgroundLine from "../assets/images/background-line.png";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useDataContext } from '../context/DataContext';
+import { Link } from 'react-router-dom';
 gsap.registerPlugin(ScrollTrigger);
 
 const Project = () => {
@@ -55,6 +56,7 @@ const Project = () => {
         src={backgroundLine}
         className="w-full h-full absolute -left-2 -right-14"
         style={{ transform: "scaleY(-1)" }}
+        loading="lazy"
         alt=""
       />
       <h1 className="transparent-color px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6">
@@ -71,9 +73,9 @@ const Project = () => {
         ))}
 
       </div>
-      <div className="text-2xl text-white text-right mr-20 cursor-pointer hover:text-blue-700 z-10">
+      <Link to={"work"} className="text-2xl text-white text-right mr-20 cursor-pointer hover:text-blue-700 z-10">
         See More...
-      </div>
+      </Link>
     </div>
   );
 };

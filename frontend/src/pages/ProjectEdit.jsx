@@ -246,6 +246,7 @@ const ProjectEdit = () => {
                   src={image.url}  // Use the temporary preview URL
                   alt={`Project Image ${index + 1}`}
                   className="w-20 h-20 object-cover rounded-md border-gray-500 border"
+                  loading="lazy"
                 />
               ))}
             </div>

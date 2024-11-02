@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import BlogCard from "./BlogCard";
 import { gsap } from "gsap";
 import { useDataContext } from '../context/DataContext';
+import { Link } from 'react-router-dom';
 
 const BlogSection = () => {
     useEffect(() => {
@@ -61,9 +62,9 @@ const BlogSection = () => {
                 </div>
             ))}
             </div>
-            <div className='text-2xl text-white text-right mr-20 cursor-pointer hover:text-blue-700 z-10'>
+            <Link to={"blogs"} className='text-2xl text-white text-right mr-20 cursor-pointer hover:text-blue-700 z-10'>
                 See More...
-            </div>
+            </Link>
         </div>
     )
 }

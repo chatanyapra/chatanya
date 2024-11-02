@@ -80,11 +80,11 @@ const Home = () => {
           <div className="w-2/4 max-md:w-full h-full relative">
             <div className="w-96 m-auto home-image max-sm:scale-75 max-sm:w-[370px] max-sm:-left-9" style={{ borderRadius: "100px", height: "500px" }}></div>
             <div className="w-96 bg-gray-400 m-auto absolute top-0 overflow-hidden max-sm:scale-75" style={{ borderRadius: "100px", height: "500px", left: "calc(50% - 192px)" }}>
-              <img src={HomeImage} className="w-full h-full" style={{ objectFit: "cover" }} alt="" />
+              <img src={HomeImage} className="w-full h-full" style={{ objectFit: "cover" }} loading="lazy" alt="" />
             </div>
-            <img src={Iconimage} className="imageUser moving-img-2 rounded-full" alt="" />
+            <img src={Iconimage} className="imageUser moving-img-2 rounded-full" loading="lazy" alt="" />
             <div className="imageUser moving-img bg-gray-200 flex py-3 px-4 rounded-2xl h-20">
-              <img src={myImage} className="w-14 h-14 rounded-full" style={{ boxShadow: "0 16px 36px rgba(0, 0, 0, .25)" }} alt="" />
+              <img src={myImage} className="w-14 h-14 rounded-full" style={{ boxShadow: "0 16px 36px rgba(0, 0, 0, .25)" }} loading="lazy" alt="" />
               <div className="block">
                 <div className="pl-3 pt-2 flex flex-col">
                   <span className="font-bold">Chatanya Pratap</span>
