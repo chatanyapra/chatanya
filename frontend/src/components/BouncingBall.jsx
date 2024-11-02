@@ -14,8 +14,8 @@ const BouncingBall = () => {
         const size =Math.floor(Math.random() * (200 - 100 + 1)) + 80; // Ball size
         const x = Math.random() * (window.innerWidth - size);
         const y = Math.random() * (window.innerHeight - size);
-        const vx = (Math.random() - 0.5) * 1; // Random initial velocity on X axis
-        const vy = (Math.random() - 0.5) * 1; // Random initial velocity on Y axis
+        const vx = (Math.random() - 0.7) * 1; // Random initial velocity on X axis
+        const vy = (Math.random() - 0.7) * 1; // Random initial velocity on Y axis
         gsap.set(ball, { x, y, width: size, height: size });
 
         ballProperties[index] = { x, y, vx, vy, size };

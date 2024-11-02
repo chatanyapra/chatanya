@@ -24,7 +24,7 @@ const Home = () => {
       { x: "-100vw" },
       {
         x: "0vw",
-        delay: 0.5,
+        delay: 3,
         duration: 1,
         ease: "power3.out",
         onComplete: () => {
@@ -41,7 +41,7 @@ const Home = () => {
     const animation2 = gsap.fromTo(
       ".imageUser",
       { scale: 0 },
-      { scale: 1, duration: 1, delay: 0.5, ease: 'power3.out' }
+      { scale: 1, duration: 1, delay: 3, ease: 'power3.out' }
     );
 
     // Cleanup function to stop the animations when the component unmounts
