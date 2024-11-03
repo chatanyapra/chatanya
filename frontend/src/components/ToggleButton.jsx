@@ -1,39 +1,18 @@
-import  { useEffect, useState } from 'react';
+import { useThemeContext } from "../context/ThemeContext";
 import "./ToggleButton.css";
 
 const ToggleButton = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      setIsDarkMode(true);
-      document.documentElement.classList.add('dark');
-    }
-  }, []);
-
-  const handleToggle = () => {
-    setIsDarkMode(!isDarkMode);
-    if (!isDarkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
-    console.log("isDarkMode - ", isDarkMode);
-    
-  };
+  const { isDarkMode, toggleDarkMode } = useThemeContext();
 
   return (
     <div className="container">
-      <label htmlFor="switch" className="toggle-switch dark:shadow-md dark:shadow-gray-950	">
+      <label htmlFor="switch" className="toggle-switch dark:shadow-md dark:shadow-gray-950">
         <input
           type="checkbox"
           className="input-toggle"
           id="switch"
           checked={isDarkMode}
-          onChange={handleToggle}
+          onChange={toggleDarkMode}
         />
         <div className="icon-toggle icon--moon">
           <svg

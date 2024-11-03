@@ -34,7 +34,6 @@ const ProjectEdit = () => {
       try {
         const response = await fetch(`/api/portfolio/projects/${id}`);
         const result = await response.json();
-        console.log(result.data);
         
         if (result.success) {
           setProjectName(result.data.title || "");

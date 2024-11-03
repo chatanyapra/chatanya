@@ -57,6 +57,7 @@ const BlogPage = () => {
           x: 0,
           y: 0,
           duration: 1.5,
+          delay: 3.1,
           ease: "power3.out",
           scrollTrigger: {
             trigger: card,

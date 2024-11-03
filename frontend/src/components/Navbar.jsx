@@ -16,12 +16,12 @@ const Navbar = () => {
         gsap.fromTo(
             logoAnim.current,
             { y: "-100vw" },
-            { y: "0vw", duration: 1, delay: 3, ease: "power3.out" }
+            { y: "0vw", duration: 1, delay: 3.3, ease: "power3.out" }
         );
         gsap.fromTo(
             ".tab-menu",
             { y: "100vw" },
-            { y: "0vw", duration: 1, delay: 3.7, ease: "power3.out" }
+            { y: "0vw", duration: 1, delay: 4, ease: "power3.out" }
         );
 
         const handleScroll = () => {

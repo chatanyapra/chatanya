@@ -202,7 +202,7 @@ const BlogEdit = () => {
       </h1>
       <div className="flex w-full justify-around flex-wrap">
         {blogs.map((blog) => (
-          <BlogCard key={blog._id} blog={blog} />
+          <BlogCard key={blog._id} blog={blog} src={"blogedit"} />
         ))}
       </div>
     </div>

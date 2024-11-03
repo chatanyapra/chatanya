@@ -25,6 +25,7 @@ const AboutPage = () => {
   const skillBarsRef2 = useRef([]);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     skillBarsRef2.current.forEach((bar) => {
       gsap.fromTo(
         bar,

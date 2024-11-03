@@ -18,7 +18,7 @@ const Home = () => {
   const homeimage = useRef(null);
   
   useEffect(() => {
-    // Initialize GSAP animations
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     const animation1 = gsap.fromTo(
       homeimage.current,
       { x: "-100vw" },

@@ -1,40 +1,66 @@
-import { useState } from 'react';
-import './SignPage.css';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useAuthContext } from '../context/AuthContext';
 import { toast, Toaster } from 'react-hot-toast';
+import './SignPage.css';
+import { useAuthContext } from '../context/AuthContext';
 
 const SignPage = () => {
+    console.log('Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID); // Debug log
     const { setAuthUser } = useAuthContext();
-    const [isActive, setIsActive] = useState(false);
-    const [signupData, setSignupData] = useState({ username: '', confirmPassword: '', password: '' });
     const [loginData, setLoginData] = useState({ username: '', password: '' });
 
-    const handleRegisterClick = () => {
-        setIsActive(true);
+    useEffect(() => {
+        const loadGoogleApi = () => {
+            const script = document.createElement('script');
+            script.src = "https://apis.google.com/js/platform.js";
+            script.async = true;
+            script.defer = true;
+            document.body.appendChild(script);
+        };
+        loadGoogleApi();
+    }, []);
+
+    const handleGoogleLogin = () => {
+        window.gapi.load('auth2', () => {
+            const auth2 = window.gapi.auth2.init({
+                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, 
+            });
+
+            auth2.signIn().then((googleUser) => {
+                const id_token = googleUser.getAuthResponse().id_token;
+
+                fetch('/api/auth/google/callback', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ id_token }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Login successful:', data);
+                        // Handle successful login (e.g., redirect, save user data, etc.)
+                    })
+                    .catch(error => {
+                        console.error('Error during Google login:', error);
+                    });
+            }).catch((error) => {
+                console.error('Error signing in with Google:', error);
+            });
+        });
     };
 
-    const handleLoginClick = () => {
-        setIsActive(false);
-    };
-
-    // Handle signup data change
-    const handleSignupChange = (e) => {
-        setSignupData({ ...signupData, [e.target.name]: e.target.value });
-    };
-
-    // Handle login data change
     const handleLoginChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
     };
 
-    // Handle signup submission
-    const handleSignup = async () => {
-        const { username, password, confirmPassword } = signupData;
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const { username, password } = loginData;
 
         // Validation
-        if (!username || !password || !confirmPassword) {
-            toast.error("All fields are required.");
+        if (!username || !password) {
+            toast.error("Both fields are required.");
             return;
         }
 
@@ -43,139 +69,79 @@ const SignPage = () => {
             return;
         }
 
-        if (password !== confirmPassword) {
-            toast.error("Passwords do not match.");
-            return;
-        }
-
         try {
-            const response = await axios.post('/api/auth/signup', signupData);
-            console.log('Signup successful:', response.data);
+            const response = await axios.post('/api/auth/login', loginData);
+            console.log('Login successful:', response.data);
+            toast.success("Login successful!");
             setAuthUser(response.data);
-            toast.success("Signup successful!");
+            localStorage.setItem("chatanya-portfolio", JSON.stringify(response.data));
         } catch (error) {
-            console.error('Signup failed:', error);
+            console.error('Login failed:', error);
             toast.error(error.response.data.error);
         }
     };
 
-    // Handle login submission
-// Handle login submission
-const handleLogin = async () => {
-    const { username, password } = loginData;
-
-    // Validation
-    if (!username || !password) {
-        toast.error("Both fields are required.");
-        return;
-    }
-    if (password.length <= 5) {
-        toast.error("Password must be at least 5 characters long.");
-        return;
-    }
-
-    try {
-        const response = await axios.post('/api/auth/login', loginData);
-        console.log('Login successful:', response.data);
-        setAuthUser(response.data);
-        toast.success("Login successful!");
-    } catch (error) {
-        console.error('Login failed:', error);
-        toast.error(error.response.data.error);
-    }
-};
-
-
     return (
-        <div className='z-10 h-screen w-full relative app-main dark:bg-white dark:text-white text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12' style={{ maxWidth: "1600px" }}>
+        <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:bg-white dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
+            style={{ maxWidth: "1600px" }}>
             <Toaster />
-            <div className="page-body">
-                <div className={`main-container ${isActive ? 'active' : ''}`} id="main-container">
-                    
-                    {/* Sign Up Form */}
-                    <div className="form-box signin-form">
-                        <form onSubmit={(e) => e.preventDefault()}>
-                            <h1 className='text-3xl'>Create Account</h1>
-                            <div className="icon-list">
-                                <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
-                                <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
-                                <a href="#" className="icon"><i className="fa-brands fa-youtube"></i></a>
-                                <a href="#" className="icon"><i className="fa-brands fa-x-twitter"></i></a>
-                            </div>
-                            <span>or use your email for register</span>
-                            <input
-                                type="text"
-                                name="username"
-                                placeholder="Username"
-                                value={signupData.username}
-                                onChange={handleSignupChange}
-                            />
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                placeholder="Confirm password"
-                                value={signupData.confirmPassword}
-                                onChange={handleSignupChange}
-                            />
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                value={signupData.password}
-                                onChange={handleSignupChange}
-                            />
-                            <button type="button" onClick={handleSignup}>Sign Up</button>
-                        </form>
+            <div className="signpage-container">
+                <div className="signpage-left">
+                    <div className="signpage-welcome-message">
+                        <h1>Welcome!</h1>
+                        <p>We`re glad to have you back.</p>
                     </div>
-                    
-                    {/* Sign In Form */}
-                    <div className="form-box signup-form">
-                        <form onSubmit={(e) => e.preventDefault()}>
-                            <h1 className='text-3xl'>Sign In</h1>
-                            <div className="icon-list">
-                                <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
-                                <a href="#" className="icon"><i className="fa-brands fa-facebook-f"></i></a>
-                                <a href="#" className="icon"><i className="fa-brands fa-youtube"></i></a>
-                                <a href="#" className="icon"><i className="fa-brands fa-x-twitter"></i></a>
+                </div>
+                <div className="signpage-right">
+                    <div className="signpage-login-box">
+                        <div className="signpage-login-title">
+                            <h2>Login</h2>
+                        </div>
+                        <form onSubmit={handleLogin}>
+                            <div className="signpage-input-box">
+                                <label htmlFor="username">Username:</label>
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    value={loginData.username}
+                                    onChange={handleLoginChange}
+                                    required
+                                />
                             </div>
-                            <span>or use your email and password</span>
-                            <input
-                                type="email"
-                                name="username"
-                                placeholder="Username"
-                                value={loginData.username}
-                                onChange={handleLoginChange}
-                            />
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Password"
-                                value={loginData.password}
-                                onChange={handleLoginChange}
-                            />
-                            <a href="#">Forgot Password?</a>
-                            <button type="button" onClick={handleLogin}>Sign In</button>
+                            <div className="signpage-input-box">
+                                <label htmlFor="password">Password:</label>
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    value={loginData.password}
+                                    onChange={handleLoginChange}
+                                    required
+                                />
+                            </div>
+                            <button type="submit" className="signpage-login-button">Login</button>
                         </form>
-                    </div>
 
-                    {/* Toggle Section */}
-                    <div className="toggle-section">
-                        <div className="toggle-box">
-                            <div className="toggle-panel panel-left">
-                                <h1>Welcome Back!</h1>
-                                <p>Enter your personal details to use all of the site`s features.</p>
-                                <button type="button" className="btn-hidden" onClick={handleLoginClick}>
-                                    Sign In
-                                </button>
-                            </div>
+                        <button onClick={handleGoogleLogin} className="signpage-google-button">
+                            Login with Google
+                        </button>
 
-                            <div className="toggle-panel panel-right">
-                                <h1>Hello, Subscriber!</h1>
-                                <p>Register with your personal details to use all of the site`s features.</p>
-                                <button type="button" className="btn-hidden" onClick={handleRegisterClick}>
-                                    Sign Up
-                                </button>
-                            </div>
+                        {/* Forgot password and sign up links */}
+                        <div className="signpage-login-options">
+                            <a href="/forgot-password">Forgot password?</a>
+                            <a href="/signup">Don`t have an account? Sign up</a>
+                        </div>
+
+                        {/* Divider with "or" in the middle */}
+                        <div className="signpage-divider">or</div>
+
+                        {/* Social login icons */}
+                        <div className="signpage-social-login">
+                            <i className="fa-brands fa-google"></i>
+                            <i className="fa-brands fa-facebook"></i>
+                            <i className="fa-brands fa-twitter"></i>
+                            <i className="fa-brands fa-apple"></i>
                         </div>
                     </div>
                 </div>
