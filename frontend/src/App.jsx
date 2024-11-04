@@ -46,10 +46,10 @@ function App() {
               <Route path="/work" element={<WorkPage />} />
               <Route path="/work/:id" element={<WorkPage />} />
               <Route path="/sign" element={<SignPage />} />
-              <Route path="/projectedit" element={authUser.isAdmin ? <ProjectEdit/> : <WorkPage/> } />
-              <Route path="/projectedit/:id" element={authUser.isAdmin ? <ProjectEdit/> : <WorkPage/> } />
-              <Route path="/blogedit" element={authUser.isAdmin ? <BlogEdit/> : <BlogPage/> } />
-              <Route path="/blogedit/:id" element={authUser.isAdmin ? <BlogEdit/> : <BlogPage/> } />
+              <Route path="/projectedit" element={authUser?.isAdmin ? <ProjectEdit/> : <WorkPage/> } />
+              <Route path="/projectedit/:id" element={authUser?.isAdmin ? <ProjectEdit/> : <WorkPage/> } />
+              <Route path="/blogedit" element={authUser?.isAdmin ? <BlogEdit/> : <BlogPage/> } />
+              <Route path="/blogedit/:id" element={authUser?.isAdmin ? <BlogEdit/> : <BlogPage/> } />
               <Route path="/*" element={<Home />} />
             </Routes>
           </div>

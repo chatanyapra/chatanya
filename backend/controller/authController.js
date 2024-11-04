@@ -4,7 +4,7 @@ import generateTokenAndSetCookie from "../securityToken/generateToken.js";
 import passport from 'passport';
 import GoogleStrategy from 'passport-google-oauth20';
 import dotenv from "dotenv";
-
+import bcrypt from 'bcrypt';
 dotenv.config();
 
 // Google authentication setup

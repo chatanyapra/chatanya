@@ -2,15 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { logo } from "../utils/imagesGallery";
 import { FaHouse, FaCircleInfo, FaBriefcase, FaBookOpenReader } from "react-icons/fa6";
 import { gsap } from "gsap";
-import ToggleButton from './ToggleButton';
 import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css';
+import ProfileDropdown from './ProfileDropdown';
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const navbarRef = useRef(null);
     const logoAnim = useRef(null);
-    const location = useLocation(); // Get the current URL
+    const location = useLocation(); 
 
     useEffect(() => {
         gsap.fromTo(
@@ -66,8 +66,8 @@ const Navbar = () => {
                                 Blogs
                             </Link>
                         </div>
-                        <div className='px-3 py-2 rounded-md text-sm font-medium'>
-                            <ToggleButton />
+                        <div className='px-3 py-2 rounded-md text-sm font-medium mt-1'>
+                            <ProfileDropdown />
                         </div>
                     </div>
                 </div>

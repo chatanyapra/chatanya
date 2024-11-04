@@ -5,7 +5,7 @@ import './SignPage.css';
 import { useAuthContext } from '../context/AuthContext';
 
 const SignPage = () => {
-    console.log('Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID); // Debug log
+    console.log('Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID);
     const { setAuthUser } = useAuthContext();
     const [loginData, setLoginData] = useState({ username: '', password: '' });
 
