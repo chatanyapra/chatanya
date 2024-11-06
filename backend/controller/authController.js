@@ -14,6 +14,8 @@ passport.use(new GoogleStrategy({
     callbackURL: 'http://localhost:5001/api/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+        console.log("googleId: profile.id --"+ googleId + profile.id );
+        
         let user = await User.findOne({ googleId: profile.id });
 
         if (!user) {

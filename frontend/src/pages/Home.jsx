@@ -44,10 +44,9 @@ const Home = () => {
       { scale: 1, duration: 1, delay: 3, ease: 'power3.out' }
     );
 
-    // Cleanup function to stop the animations when the component unmounts
     return () => {
-      animation1.kill(); // Stop the first animation
-      animation2.kill(); // Stop the second animation
+      animation1.kill();
+      animation2.kill();
     };
   }, []);
 
