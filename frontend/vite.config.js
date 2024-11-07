@@ -8,7 +8,8 @@ export default defineConfig({
     port: 4000,
     proxy: {
       "/api": {
-        target: "http://localhost:5001"
+        target: "https://chatanya.onrender.com"
+        // target: "http://localhost:5001"
       }
     }
   }
