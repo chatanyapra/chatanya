@@ -5,7 +5,7 @@ import './SignPage.css';
 import { useAuthContext } from '../context/AuthContext';
 
 const SignPage = () => {
-    console.log('Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID);
+    // console.log('Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID);
     const { setAuthUser } = useAuthContext();
     const [loginData, setLoginData] = useState({ username: '', password: '' });
 
@@ -15,39 +15,45 @@ const SignPage = () => {
             script.src = "https://accounts.google.com/gsi/client";
             script.async = true;
             script.defer = true;
+            script.onload = () => initializeGoogleSignIn();
             document.body.appendChild(script);
         };
+
+        const initializeGoogleSignIn = () => {
+            /* Initialize Google Sign-In with GIS library */
+            window.google.accounts.id.initialize({
+                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                callback: handleGoogleCallback,
+            });
+        };
+
         loadGoogleApi();
     }, []);
 
+    const handleGoogleCallback = (response) => {
+        const id_token = response.credential;
+
+        fetch('/api/auth/google/callback', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id_token }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Login successful:', data);
+                // Handle successful login, e.g., update auth state
+                setAuthUser(data);
+            })
+            .catch(error => {
+                console.error('Error during Google login:', error);
+            });
+    };
+
+    // Attach this function to the "Login with Google" button
     const handleGoogleLogin = () => {
-        window.gapi.load('auth2', () => {
-            const auth2 = window.gapi.auth2.init({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID, 
-            });
-
-            auth2.signIn().then((googleUser) => {
-                const id_token = googleUser.getAuthResponse().id_token;
-
-                fetch('/api/auth/google/callback', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ id_token }),
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log('Login successful:', data);
-                        // Handle successful login (e.g., redirect, save user data, etc.)
-                    })
-                    .catch(error => {
-                        console.error('Error during Google login:', error);
-                    });
-            }).catch((error) => {
-                console.error('Error signing in with Google:', error);
-            });
-        });
+        window.google.accounts.id.prompt();  // Trigger the one-tap prompt
     };
 
     const handleLoginChange = (e) => {

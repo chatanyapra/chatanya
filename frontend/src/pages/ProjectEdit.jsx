@@ -180,7 +180,7 @@ const ProjectEdit = () => {
 
           <label className="block mt-8">Long Description</label>
           <Editor
-            // apiKey="1yqaqm9j3s2xqp0wunxxzxj3wlwfn16tlbfq9ihk1trnht4m"
+            apiKey={import.meta.env.VITE_GOOGLE_EDITOR_API}
             onInit={(evt, editor) => (editorRef.current = editor)}
             // onInit={(e) => setProjectLongDescription(e.target.value)}
             initialValue={projectLongDescription}

@@ -155,6 +155,7 @@ const BlogEdit = () => {
 
           <label className="block mt-8">Long Description</label>
           <Editor
+            apiKey={import.meta.env.VITE_GOOGLE_EDITOR_API}
             onInit={(evt, editor) => (editorRef.current = editor)}
             initialValue={blogLongDescription}
             init={{
