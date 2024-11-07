@@ -96,7 +96,7 @@ const BlogEdit = () => {
 
     try {
       const method = id ? "PUT" : "POST";
-      const url = `/api/portfolio/blogs/${id ? `/${id}` : ''}`;
+      const url = `/api/portfolio/blogs${id ? `/${id}` : ''}`;
 
       const response = await fetch(url, {
         method,

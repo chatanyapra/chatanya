@@ -118,7 +118,7 @@ const ProjectEdit = () => {
   
     try {
       const method = id ? "PUT" : "POST";
-      const url = `/api/portfolio/projects/${id ? `/${id}` : ''}`;
+      const url = `/api/portfolio/projects${id ? `/${id}` : ''}`;
   
       const response = await fetch(url, {
         method,
