@@ -1,50 +1,49 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import generateTokenAndSetCookie from "../securityToken/generateToken.js";
-import passport from 'passport';
-import GoogleStrategy from 'passport-google-oauth20';
-import dotenv from "dotenv";
+import { OAuth2Client } from "google-auth-library";
 import bcrypt from 'bcrypt';
+import dotenv from "dotenv";
 dotenv.config();
 
-// Google authentication setup
-passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    // callbackURL: 'http://localhost:5001/api/auth/google/callback'
-    callbackURL: 'https://chatanya.onrender.com/api/auth/google/callback'
-}, async (accessToken, refreshToken, profile, done) => {
-    try {
-        console.log("googleId: profile.id --"+ googleId + profile.id );
-        
-        let user = await User.findOne({ googleId: profile.id });
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
+// Route for verifying the Google token
+export const verifyGoogleToken = asyncHandler(async (req, res) => {
+    const { id_token } = req.body;
+
+    try {
+        const ticket = await client.verifyIdToken({
+            idToken: id_token,
+            audience: process.env.GOOGLE_CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        const googleId = payload["sub"];
+
+        let user = await User.findOne({ googleId });
+
+        // If user doesn’t exist, create a new user
         if (!user) {
             user = await User.create({
-                username: profile.displayName,
-                googleId: profile.id,
-                image: profile._json.picture,
-                isAdmin: false
+                username: payload["name"],
+                googleId,
+                image: payload["picture"],
+                isAdmin: false,
             });
         }
-
-        generateTokenAndSetCookie(user._id, done);
-        return done(null, user);
+        generateTokenAndSetCookie(user._id, res);
+        res.status(200).json({
+            _id: user._id,
+            username: user.username,
+            isAdmin: user.isAdmin,
+            image: user.image
+        });
     } catch (error) {
-        return done(error);
+        console.error("Error verifying Google ID token:", error);
+        res.status(500).json({ message: "Token verification failed" });
     }
-}));
-
-passport.serializeUser((user, done) => {
-    done(null, user.id);
 });
 
-passport.deserializeUser(async (id, done) => {
-    const user = await User.findById(id);
-    done(null, user);
-});
-
-// signup public
 export const createUser = asyncHandler(async (req, res) => {
     try {
         const { username, password, confirmPassword } = req.body;
@@ -52,11 +51,11 @@ export const createUser = asyncHandler(async (req, res) => {
             return res.status(400).json({ error: "All fields are mandatory!" });
         }
         if (confirmPassword !== password) {
-            return res.status(400).json({ error: "Password don't match!" });
+            return res.status(400).json({ error: "Passwords don't match!" });
         }
         const user = await User.findOne({ username });
         if (user) {
-            res.status(400).json({ error: "User already exists!" });
+            return res.status(400).json({ error: "User already exists!" });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -80,6 +79,9 @@ export const createUser = asyncHandler(async (req, res) => {
     }
 });
 
+// other routes...
+
+
 // login public
 export const loginUser = asyncHandler(async (req, res) => {
     try {
@@ -94,7 +96,8 @@ export const loginUser = asyncHandler(async (req, res) => {
         res.status(200).json({
             _id: user._id,
             username: user.username,
-            isAdmin: user.isAdmin
+            isAdmin: user.isAdmin,
+            image: user.image
         });
     } catch (error) {
         console.log("Error in Login Controller", error.message);

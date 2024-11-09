@@ -7,6 +7,9 @@ import authRoutes from "./routes/authRoutes.js";
 import messageRoutes from "./routes/messageRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import portfolioRoutes from "./routes/portfolioRoutes.js";
+// import cors from 'cors';
+// import session from 'express-session';
+
 
 const app = express();
 const port = 5001;
@@ -15,6 +18,12 @@ dotenv.config();
 
 app.use(cookieParser());
 app.use(express.json());
+
+// app.use(cors({
+//     origin: ['http://localhost:5001/api/auth/google/callback', 'http://localhost:3000'], // Add your client and backend URLs
+//     credentials: true
+//   }));
+
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);

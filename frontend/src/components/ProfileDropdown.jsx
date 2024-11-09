@@ -45,9 +45,13 @@ function ProfileDropdown() {
         <div className="relative inline-block" ref={dropdownRef}>
             <button
                 onClick={toggleDropdown}
-                className="flex items-center text-sm font-medium text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300"
+                className="flex items-center text-sm font-medium text-gray-700 bg-gray-200 rounded-full hover:bg-gray-300 overflow-hidden"
             >
-                <FaUserCircle size={30} className="text-gray-500" />
+                {authUser ? (
+                    <img src={`${authUser?.image}`} alt='profileImg' className='w-8 h-8' />
+                ): (
+                    <FaUserCircle size={30} className="text-gray-500" />
+                )}
             </button>
 
             {/* Dropdown Menu */}

@@ -5,8 +5,7 @@ import './SignPage.css';
 import { useAuthContext } from '../context/AuthContext';
 
 const SignPage = () => {
-    // console.log('Google Client ID:', import.meta.env.VITE_GOOGLE_CLIENT_ID);
-    const { setAuthUser } = useAuthContext();
+    const { authUser, setAuthUser } = useAuthContext();
     const [loginData, setLoginData] = useState({ username: '', password: '' });
 
     useEffect(() => {
@@ -15,46 +14,46 @@ const SignPage = () => {
             script.src = "https://accounts.google.com/gsi/client";
             script.async = true;
             script.defer = true;
-            script.onload = () => initializeGoogleSignIn();
+            script.onload = () => initializeGoogleButton();
             document.body.appendChild(script);
         };
 
-        const initializeGoogleSignIn = () => {
-            /* Initialize Google Sign-In with GIS library */
-            window.google.accounts.id.initialize({
-                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-                callback: handleGoogleCallback,
-            });
+        const initializeGoogleButton = () => {
+            if (window.google) {
+                window.google.accounts.id.initialize({
+                    client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                    callback: handleCredentialResponse,
+                });
+                if(!authUser){   
+                    window.google.accounts.id.renderButton(
+                        document.getElementById('google-login-button'),
+                        { theme: 'outline', size: 'large' }
+                    );
+                }
+            }
         };
 
         loadGoogleApi();
     }, []);
 
-    const handleGoogleCallback = (response) => {
+    function handleCredentialResponse(response) {
         const id_token = response.credential;
-
-        fetch('/api/auth/google/callback', {
+        fetch('http://localhost:5001/api/auth/google/token', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id_token }),
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_token }) 
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Login successful:', data);
-                // Handle successful login, e.g., update auth state
-                setAuthUser(data);
-            })
-            .catch(error => {
-                console.error('Error during Google login:', error);
-            });
-    };
-
-    // Attach this function to the "Login with Google" button
-    const handleGoogleLogin = () => {
-        window.google.accounts.id.prompt();  // Trigger the one-tap prompt
-    };
+        .then(response => response.json())
+        .then(data => {
+            toast.success("Login successful!");
+            setAuthUser(data);
+            localStorage.setItem("chatanya-portfolio", JSON.stringify(data));
+        })
+        .catch(error => {
+            console.error('Error during Google login:', error);
+            toast.error('Google login failed');
+        });
+    }
 
     const handleLoginChange = (e) => {
         setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -64,26 +63,18 @@ const SignPage = () => {
         e.preventDefault();
         const { username, password } = loginData;
 
-        // Validation
         if (!username || !password) {
             toast.error("Both fields are required.");
             return;
         }
 
-        if (password.length <= 5) {
-            toast.error("Password must be at least 5 characters long.");
-            return;
-        }
-
         try {
             const response = await axios.post('/api/auth/login', loginData);
-            console.log('Login successful:', response.data);
             toast.success("Login successful!");
             setAuthUser(response.data);
             localStorage.setItem("chatanya-portfolio", JSON.stringify(response.data));
         } catch (error) {
-            console.error('Login failed:', error);
-            toast.error(error.response.data.error);
+            toast.error(error.response.data.error || "Login failed");
         }
     };
 
@@ -128,27 +119,7 @@ const SignPage = () => {
                             </div>
                             <button type="submit" className="signpage-login-button">Login</button>
                         </form>
-
-                        <button onClick={handleGoogleLogin} className="signpage-google-button">
-                            Login with Google
-                        </button>
-
-                        {/* Forgot password and sign up links */}
-                        <div className="signpage-login-options">
-                            <a href="/forgot-password">Forgot password?</a>
-                            <a href="/signup">Don`t have an account? Sign up</a>
-                        </div>
-
-                        {/* Divider with "or" in the middle */}
-                        <div className="signpage-divider">or</div>
-
-                        {/* Social login icons */}
-                        <div className="signpage-social-login">
-                            <i className="fa-brands fa-google"></i>
-                            <i className="fa-brands fa-facebook"></i>
-                            <i className="fa-brands fa-twitter"></i>
-                            <i className="fa-brands fa-apple"></i>
-                        </div>
+                        <div id="google-login-button" className="google-login-button mt-10"></div>
                     </div>
                 </div>
             </div>
