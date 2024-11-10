@@ -11,11 +11,7 @@ function ProfileDropdown() {
     const dropdownRef = useRef(null);
     const { authUser, setAuthUser } = useAuthContext();
 
-
-    // Toggle dropdown
     const toggleDropdown = () => setIsOpen(!isOpen);
-
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

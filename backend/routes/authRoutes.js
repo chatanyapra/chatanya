@@ -10,11 +10,6 @@ router.post("/logout", logoutUser)
 // Google auth routes
 router.post("/google/token", verifyGoogleToken);
 
-// router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
-
-// router.get('/google/callback', passport.authenticate('google', { failureRedirect: '/' }), (req, res) => {
-//     res.redirect('/blogs');  // or send user info or token in response
-// });
 
 
 

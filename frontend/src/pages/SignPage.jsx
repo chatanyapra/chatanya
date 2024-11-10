@@ -38,7 +38,8 @@ const SignPage = () => {
 
     function handleCredentialResponse(response) {
         const id_token = response.credential;
-        fetch('http://localhost:5001/api/auth/google/token', {
+        // fetch('http://localhost:5001/api/auth/google/token', {
+        fetch('https://chatanya.onrender.com/api/auth/google/token', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id_token }) 

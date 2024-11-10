@@ -8,7 +8,6 @@ dotenv.config();
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
-// Route for verifying the Google token
 export const verifyGoogleToken = asyncHandler(async (req, res) => {
     const { id_token } = req.body;
 
