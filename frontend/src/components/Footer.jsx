@@ -4,10 +4,10 @@ import gmailImage from "../assets/IconsImage/gmail.png"
 import "./Footer.css"
 const Footer = () => {
     return (
-        <div className='w-full min-h-80 relative flex max-md:flex-col justify-around items-center px-10 max-sm:px-5 max-md:pb-14 dark:text-black'>
+        <div className='w-full min-h-60 relative flex max-md:flex-col justify-between items-center px-10 max-sm:px-5 max-md:mt-16 max-md:pb-14 text-white dark:text-black mb-20'>
             <img src={footerImage2} alt="" className='absolute top-0 -left-20 -right-6 h-5/6 w-full -z-20 brightness-50' />
             <img src={footerImage3} alt="" className='absolute top-0 right-0 w-36 -z-10' />
-            <div className='w-11/12 max-sm:w-full  text-white dark:text-black'>
+            <div className=' max-sm:w-full max-sm:text-center  '>
                 <div className='text-3xl max-sm:text-2xl'>
                     Thanks for visiting!
                 </div>
@@ -15,7 +15,7 @@ const Footer = () => {
                 ©2024 Designs by Chatanya Pratap.
                 </div>
             </div>
-            <div className="text-xl flex flex-col max-md:text-sm max-sm:pb-10 text-white">
+            <div className="text-xl flex flex-col max-md:text-sm max-sm:pb-10   max-md:mb-3">
                 <span>
                     connect with me via Mail?
                 </span>
@@ -24,7 +24,7 @@ const Footer = () => {
                     pratapchatanya@gmail.com
                 </a>
             </div>
-            <div className='absolute bottom-4 max-sm:w-full right-4 flex max-sm:flex-col text-white dark:text-black text-4xl max-sm:mb-10'>
+            <div className='absolute bottom-4 max-sm:w-full right-4 flex max-sm:flex-col  text-4xl max-sm:mb-10'>
                 <ul className="example-2">
                     <li className="icon-content">
                         <a

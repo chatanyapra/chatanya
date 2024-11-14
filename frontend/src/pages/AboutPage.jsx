@@ -80,11 +80,11 @@ const AboutPage = () => {
     { title: 'Desire to Work Hard', content: 'Detailed content about the desire to work hard...' },
   ];
   return (
-    <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
+    <div className="z-10 h-full min-h-screen w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
       style={{ maxWidth: "1600px" }}>
       {/* ---------content------------ */}
-      <div className="w-full flex justify-evenly z-10 max-md:flex-col text-white">
-        <div className="w-[52%] max-md:w-[98%] h-[450px] overflow-hidden max-md:h-auto transparent-color md:rounded-[50px] rounded-t-[50px] p-6 border-b-0 relative">
+      <div className="w-full flex justify-evenly max-md:items-center z-10 max-md:flex-col text-white dark:text-black">
+        <div className="w-[52%] max-md:w-[98%] min-h-[450px] overflow-hidden max-md:h-auto transparent-color md:rounded-[50px] rounded-t-[50px] p-6 border-b-0 relative light-dark-shadow">
           <h1 className="text-5xl mt-4">Hello,</h1>
           <h1 className="text-5xl pt-4">I&apos;m Chatanya</h1>
           <p className="pt-4 text-gray-400 dark:text-gray-700">
@@ -94,8 +94,8 @@ const AboutPage = () => {
             I am currently working as a Freelance Developer and a Full Stack Developer Intern and I am open to new opportunities. I have a healthy obsession of learning new everyday which makes a better developer and a better Athlete. I love playing Football.
           </p>
         </div>
-        <div className="w-[34%] max-md:w-[98%] h-[450px] transparent-color md:rounded-[50px] rounded-b-[50px] overflow-hidden">
-          <img src={image2} className="m-auto h-full" alt="" />
+        <div className="w-[34%] max-md:w-[98%] h-auto transparent-color md:rounded-[50px] rounded-b-[50px] overflow-hidden flex justify-center items-center light-dark-shadow">
+          <img src={image2} className="m-auto h-full max-h-[450px]" alt="" />
         </div>
       </div>
 

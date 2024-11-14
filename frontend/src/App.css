@@ -61,7 +61,9 @@ body{
     transform: translateX(-400%);
   }
 }
-
+.dark .light-dark-shadow{
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 2px 10px;
+}
 .marquee2 {
   animation: marquee2 25s linear infinite;
 }
