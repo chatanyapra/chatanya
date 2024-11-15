@@ -2,7 +2,7 @@ import { useThemeContext } from "../context/ThemeContext";
 import "./ToggleButton.css";
 
 const ToggleButton = () => {
-  const { isDarkMode, toggleDarkMode } = useThemeContext();
+  const { isDarkMode } = useThemeContext();
 
   return (
     <div className="container">
@@ -12,7 +12,7 @@ const ToggleButton = () => {
           className="input-toggle"
           id="switch"
           checked={isDarkMode}
-          onChange={toggleDarkMode}
+          // onChange={toggleDarkMode}
         />
         <div className="icon-toggle icon--moon">
           <svg
