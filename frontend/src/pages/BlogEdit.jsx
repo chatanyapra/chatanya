@@ -25,33 +25,30 @@ const BlogEdit = () => {
     setBlogShortDescription("");
     setBlogLongDescription("");
     setBlogImages([]);
-    setLoading(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    
+
     const fetchByBlogId = async () => {
       try {
         const response = await fetch(`/api/portfolio/blogs/${id}`);
         const result = await response.json();
-        
+
         if (result.success) {
           setBlogTitle(result.data.title || "");
           setBlogShortDescription(result.data.shortDescription || "");
           setBlogLongDescription(result.data.longDescription || "");
           const fetchedImages = result.data.images || [];
-          setBlogImages(fetchedImages); 
+          setBlogImages(fetchedImages);
           setExistingImages(fetchedImages);
         } else {
           console.error("Failed to load blog data.");
         }
       } catch (error) {
         console.error("Error fetching blog:", error);
-      } finally {
-        setLoading(false);
       }
     };
-    
+
     if (id) fetchByBlogId();
-  }, [id, setLoading]);
+  }, [id]);
 
   const limitImages = (event) => {
     const files = Array.from(event.target.files);
@@ -71,12 +68,12 @@ const BlogEdit = () => {
     return () => {
       blogImages.forEach((image) => URL.revokeObjectURL(image.url));
     };
-  }, [blogImages]);  
+  }, [blogImages]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setLoading(true);
-    
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     const formData = new FormData();
@@ -126,7 +123,7 @@ const BlogEdit = () => {
     <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:bg-white dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
       style={{ maxWidth: "1600px" }}>
       <h1 className="text-3xl font-bold text-left dark:text-black text-white mb-6 pl-4 w-full">Blog Form</h1>
-      <div className="rounded-lg relative shadow-md w-[92%] overflow-hidden">
+      <div className="rounded-lg relative shadow-md w-[92%] overflow-hidden light-dark-shadow border border-gray-400">
         {loading && (
           <div className="w-full h-full bg-gray-50 bg-opacity-70 absolute top-0 left-0 z-10 flex justify-center items-center">
             <Loader />
@@ -139,7 +136,7 @@ const BlogEdit = () => {
             name="blogTitle"
             value={blogTitle}
             onChange={(e) => setBlogTitle(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-400 rounded"
             required
           />
 
@@ -149,7 +146,7 @@ const BlogEdit = () => {
             name="blogShortDescription"
             value={blogShortDescription}
             onChange={(e) => setBlogShortDescription(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-400 rounded"
             required
           />
 
@@ -201,7 +198,7 @@ const BlogEdit = () => {
       <h1 className="text-3xl font-bold text-left mb-6 mt-24 dark:text-black text-white">
         Blogs
       </h1>
-      <div className="flex w-full justify-around flex-wrap">
+      <div className="flex w-full justify-around max-lg:flex-col md:flex-wrap max-md:px-1">
         {blogs.map((blog) => (
           <BlogCard key={blog._id} blog={blog} src={"blogedit"} />
         ))}

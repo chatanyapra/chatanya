@@ -26,7 +26,7 @@
   height: 90%;
   border-radius: 50%;
   background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 58%);
-  filter: blur(8px); /* Enhanced blur for more glass-like reflection */
+  filter: blur(20px); /* Enhanced blur for more glass-like reflection */
   z-index: 2;
 }
 

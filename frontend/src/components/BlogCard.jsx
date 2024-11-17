@@ -14,7 +14,7 @@ const BlogCard = ({ blog, src }) => {
   };
 
   return (
-    <div className="flex justify-center items-center my-6 mx-auto w-full">
+    <div className="flex justify-center items-center my-6 mx-auto ">
       <div className="relative w-[550px] max-lg:w-[98%] h-[400px] max-sm:h-[300px]">
         {/* Main Image */}
         <div className="absolute top-0 left-0 w-4/5 h-5/6 transparent-color light-dark-shadow rounded-[40px] overflow-hidden">

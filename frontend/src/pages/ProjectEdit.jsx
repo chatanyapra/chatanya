@@ -13,7 +13,6 @@ const ProjectEdit = () => {
   
   const { id } = useParams(null);
 
-  // State variables for form fields
   const [projectName, setProjectName] = useState("");
   const [projectShortDescription, setProjectShortDescription] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
@@ -21,6 +20,7 @@ const ProjectEdit = () => {
   const [techStacks, setTechStacks] = useState([""]);
   const [projectImages, setProjectImages] = useState([""]);
   const [existingImages, setExistingImages] = useState([]);
+  
 
   useEffect(() => {
     setTechStacks([""]);
@@ -28,7 +28,6 @@ const ProjectEdit = () => {
     setProjectShortDescription("");
     setProjectLink("");
     setProjectImages([""]);
-    setLoading(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
     const fetchByProjectId = async () => {
       try {
@@ -41,7 +40,7 @@ const ProjectEdit = () => {
           setProjectLongDescription(result.data.longDescription || "");
           setProjectLink(result.data.link || "");
           const fetchedImages = result.data.images || [];
-          setProjectImages(fetchedImages); // Store in projectImages state
+          setProjectImages(fetchedImages);  
           setExistingImages(fetchedImages); 
 
           const initialTechStacks = result.data.techStack.map((stack) => ({ name: stack.name || "" }));
@@ -51,12 +50,10 @@ const ProjectEdit = () => {
         }
       } catch (error) {
         console.error("Error fetching project:", error);
-      } finally{
-        setLoading(false);
       }
     };
     if (id) fetchByProjectId();
-  }, [id, setLoading]);
+  }, [id]);
 
   const limitImages = (event) => {
     const files = Array.from(event.target.files);
@@ -149,7 +146,7 @@ const ProjectEdit = () => {
     <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:bg-white dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
       style={{ maxWidth: "1600px" }}>
       <h1 className="text-3xl font-bold text-left dark:text-black text-white mb-6 pl-4 w-full">Project Form</h1>
-      <div className="rounded-lg relative shadow-md md:col-span-7 w-[92%] overflow-hidden">
+      <div className="rounded-lg relative shadow-md md:col-span-7 w-[92%] overflow-hidden light-dark-shadow border border-gray-400">
         {loading && (
           <div className="w-full h-full bg-gray-50 bg-opacity-70 absolute top-0 left-0 z-10 flex justify-center items-center">
             <div className="mx-auto">
@@ -164,7 +161,7 @@ const ProjectEdit = () => {
             name="projectName"
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-400 rounded"
             required
           />
 
@@ -174,7 +171,7 @@ const ProjectEdit = () => {
             name="projectShortDescription"
             value={projectShortDescription}
             onChange={(e) => setProjectShortDescription(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-400 rounded"
             required
           />
 
@@ -200,7 +197,7 @@ const ProjectEdit = () => {
             name="projectLink"
             value={projectLink}
             onChange={(e) => setProjectLink(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
+            className="w-full p-2 border border-gray-400 rounded"
             placeholder="https://example.com"
             required
           />
@@ -213,7 +210,7 @@ const ProjectEdit = () => {
                 type="text"
                 value={techStack.name || ""}
                 onChange={(e) => handleTechStackChange(index, e.target.value)}
-                className="w-72 mr-5 p-2 border border-gray-300 rounded"
+                className="w-72 mr-5 p-2 border border-gray-400 rounded"
                 placeholder="Tech Stack Name"
               />
             ))}

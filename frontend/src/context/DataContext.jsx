@@ -61,6 +61,7 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
         refreshBlogs();
         refreshProjects(); 
+        
     }, []);
 
     return (

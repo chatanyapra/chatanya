@@ -52,7 +52,7 @@ const BouncingBall = () => {
   }, []);
 
   return (
-    <div className='w-full -z-10 max-md:mt-24 h-full'>
+    <div className='w-full -z-10 max-sm:mt-24 h-full'>
       <div className="bouncing-balls-container">
         <div className="ball-moving ball-1" ref={(el) => ballsRef.current[0] = el}></div>
         <div className="ball-moving ball-2" ref={(el) => ballsRef.current[1] = el}></div>

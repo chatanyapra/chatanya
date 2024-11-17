@@ -62,7 +62,7 @@ const About = () => {
             </div>
             <i>About</i>
           </h1>
-          <p>
+          <p className="text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, iste magnam. Explicabo dignissimos dolores, temporibus laboriosam aperiam eum. Voluptatum consequuntur ducimus, odit quo blanditiis debitis, dolorem illum nulla consectetur atque dolorum eos harum eum! Ea quia quidem dolor rerum distinctio laudantium, minima atque tenetur quaerat ad, id aperiam consequuntur optio vero dolore rem eius magni? Consequatur qui, eius eligendi aperiam doloribus repellat nam.
           </p>
         </div>

@@ -51,7 +51,7 @@ const Project = () => {
   const { projects } = useDataContext();
 
   return (
-    <div className="w-full my-16 mx-auto flex flex-col relative project-card-bglighter">
+    <div className="w-full mb-16 mt-24 mx-auto flex flex-col relative project-card-bglighter">
       <img
         src={backgroundLine}
         className="w-full h-full absolute -left-2 -right-14"
