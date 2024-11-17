@@ -37,14 +37,14 @@ const Skills = () => {
     return (
         <section className="text-white dark:text-black pb-10 mb-8">
             <div className="w-full mx-auto px-4">
-                <div className='transparent-color px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-3'>
+                <div className='transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-3'>
                     <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
                         <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
                     </div>
                     <i>My Skills</i>
                 </div>
                 <h3 className="text-3xl font-bold my-4 ml-3">I Develop Skills Regularly</h3>
-                <p className="text-gray-400 mb-8 ml-3">
+                <p className="text-white dark:text-black mb-8 ml-3">
                     Dliquip ex ea commo do conse namber onequa ute irure dolor in reprehenderit in voluptate.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-[95%] m-auto">

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import SlideImage from "../components/SlideImage";
+// import SlideImage from "../components/SlideImage";
 import "./WorkPage.css";
 import ProjectCard from "../components/ProjectCard";
 import Footer from "../components/Footer";
@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const WorkPage = () => {
   const { id } = useParams();
-  const slideImageRef = useRef(null);
+  // const slideImageRef = useRef(null);
   const projectCardRefs = useRef([]);
   
   const [projectName, setProjectName] = useState("");
@@ -47,23 +47,23 @@ const WorkPage = () => {
   }, [id]);
 
   useEffect(() => {
-    if (slideImageRef.current) {
-      gsap.fromTo(
-        slideImageRef.current,
-        { x: 100, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 1.5,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: slideImageRef.current,
-            start: "top 90%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    }
+    // if (slideImageRef.current) {
+    //   gsap.fromTo(
+    //     slideImageRef.current,
+    //     { x: 100, opacity: 0 },
+    //     {
+    //       x: 0,
+    //       opacity: 1,
+    //       duration: 1.5,
+    //       ease: "power2.out",
+    //       scrollTrigger: {
+    //         trigger: slideImageRef.current,
+    //         start: "top 90%",
+    //         toggleActions: "play none none reverse",
+    //       },
+    //     }
+    //   );
+    // }
 
     // GSAP animation for project cards (similar to BlogPage animation)
     const cards = gsap.utils.toArray(".projectCard");
@@ -111,19 +111,19 @@ const WorkPage = () => {
     <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
       {projectLongDescription && (
         <>
-          <div className="w-[95%] min-h-96 transparent-color rounded-[50px] flex max-md:flex-col justify-between p-10">
+          <div className="w-[95%] min-h-96 transparent-color light-dark-shadow rounded-[50px] flex max-md:flex-col justify-between p-10 ">
             <div>
               <h1 className="text-4xl pb-10 text-white dark:text-black">{projectName}</h1>
               <p className="text-gray-400 dark:text-gray-700" dangerouslySetInnerHTML={{ __html: projectLongDescription }}></p>
             </div>
 
-            <div ref={slideImageRef} className="relative ml-5">
+            {/* <div ref={slideImageRef} className="relative ml-5">
               <SlideImage />
-            </div>
+            </div> */}
           </div>
           
           <div className="w-full">
-            <div className="mt-12 z-10 transparent-color px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-3">
+            <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6">
               <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
                 <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
               </div>
@@ -131,14 +131,14 @@ const WorkPage = () => {
             </div>
           </div>
 
-          <div className="w-[95%] transparent-color rounded-[50px]">
+          <div className="w-[95%] transparent-color light-dark-shadow rounded-[50px] mt-6">
             <IconsImage techStacks={techStacks} />
           </div>
         </>
       )}
       
       <div className="w-full">
-        <div className="mt-12 z-10 transparent-color px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-3">
+        <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6">
           <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
             <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
           </div>

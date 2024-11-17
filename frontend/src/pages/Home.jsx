@@ -58,11 +58,11 @@ const Home = () => {
           <div className="w-2/4 max-md:w-full h-full text-gray-50 dark:text-black md:ml-16">
             <div className='m-auto text-left'>
               <h5 className='text-xl py-2'>Welcome to my world</h5>
-              <div className='text-6xl max-md:text-5xl font-bold py-4'>Hi,</div>
-              <div className='text-6xl max-md:text-5xl font-bold py-4'> I&apos;m <span className='text-gradient'>Chatanya</span></div>
+              <div className='text-4xl font-bold py-4'>Hi,</div>
+              <div className='text-8xl max-md:text-6xl font-bold py-2'><span className="text-4xl"> I&apos;m</span> <span className='text-gradient'>Chatanya</span></div>
               <span className='text-3xl font-bold py-4 max-md:text-4xl flex'>
                 a
-                <span className='sm:pl-3'>
+                <span className='sm:pl-1 mt-0.5'>
                   <TypewriterEffect />
                 </span>
               </span>

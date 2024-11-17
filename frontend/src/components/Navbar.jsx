@@ -46,27 +46,27 @@ const Navbar = () => {
                     <div className='flex'>
                         <div className="hidden md:flex space-x-4 mt-2 ">
                             <Link to="/"
-                                className={`px-3 py-2 rounded-md text-sm font-medium drop-shadow-lg ${location.pathname === '/' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
+                                className={`px-3 py-2 rounded-md text-base font-medium drop-shadow-lg ${location.pathname === '/' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
                             >
                                 Home
                             </Link>
                             <Link to="/about"
-                                className={`px-3 py-2 rounded-md text-sm font-medium drop-shadow-lg ${location.pathname === '/about' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
+                                className={`px-3 py-2 rounded-md text-base font-medium drop-shadow-lg ${location.pathname === '/about' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
                             >
                                 About
                             </Link>
                             <Link to="/work"
-                                className={`px-3 py-2 rounded-md text-sm font-medium drop-shadow-lg ${location.pathname === '/work' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
+                                className={`px-3 py-2 rounded-md text-base font-medium drop-shadow-lg ${location.pathname === '/work' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
                             >
                                 Work
                             </Link>
                             <Link to="/blogs"
-                                className={`px-3 py-2 rounded-md text-sm font-medium drop-shadow-lg ${location.pathname === '/blogs' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
+                                className={`px-3 py-2 rounded-md text-base font-medium drop-shadow-lg ${location.pathname === '/blogs' ? 'text-blue-600' : 'text-white dark:text-black hover:text-blue-400'}`}
                             >
                                 Blogs
                             </Link>
                         </div>
-                        <div className='px-3 py-2 rounded-md text-sm font-medium mt-1'>
+                        <div className='px-3 py-2 rounded-md text-base font-medium mt-1'>
                             <ProfileDropdown />
                         </div>
                     </div>

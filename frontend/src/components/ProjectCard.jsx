@@ -5,7 +5,7 @@ import "./Project.css";
 
 const ProjectCard = ({ project, src }) => {
     return (
-        <div className="transparent-color card-container my-5 w-[550px] flex max-md:w-[95%] max-md:h-[350px] max-sm:h-[300px] mx-auto overflow-hidden relative group">
+        <div className="transparent-color light-dark-shadow card-container my-5 w-[550px] flex max-md:w-[95%] max-md:h-[350px] max-sm:h-[300px] mx-auto overflow-hidden relative group">
             <div className="card-project md:w-[450px] max-md:w-[85%] max-md:h-[350px] max-sm:h-[300px] ">
                 <div className="img-content">
                     {project.images && project.images.length > 0 && (
@@ -17,7 +17,7 @@ const ProjectCard = ({ project, src }) => {
                     <p className="max-sm:text-xs">{project.shortDescription}</p>
                 </div>
             </div>
-            <div className="flex m-auto flex-col h-full justify-around text-white">
+            <div className="flex m-auto flex-col h-full justify-around text-white dark:text-black">
                 <div className="rounded-full flex justify-center items-center mx-auto">
                     <div className="bg-gradient-radial w-10 md:w-12 h-10 md:h-12 m-auto rounded-full transition-transform transform group-hover:scale-125 duration-500 ease-in-out"></div>
                 </div>

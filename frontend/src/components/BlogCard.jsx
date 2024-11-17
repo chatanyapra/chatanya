@@ -17,7 +17,7 @@ const BlogCard = ({ blog, src }) => {
     <div className="flex justify-center items-center my-6 mx-auto w-full">
       <div className="relative w-[550px] max-lg:w-[98%] h-[400px] max-sm:h-[300px]">
         {/* Main Image */}
-        <div className="absolute top-0 left-0 w-4/5 h-5/6 transparent-color rounded-[40px] overflow-hidden">
+        <div className="absolute top-0 left-0 w-4/5 h-5/6 transparent-color light-dark-shadow rounded-[40px] overflow-hidden">
           <img
             src={images[mainImageIndex]}
             className="toggleImage1 w-full h-full object-fill hover:scale-150 hover:opacity-75 transition duration-500 ease-in-out"

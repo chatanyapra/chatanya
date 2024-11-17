@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Solway:wght@300;400;500;700;800&family=Metrophobic:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round:wght@400&family=Metrophobic:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mona+Sans:wght@200;300;400;500;600;700;800;900&family=Metrophobic:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Antique+B1:wght@400&family=Metrophobic:wght@400&display=swap');
+
 :root {
   --primary-color: #070a29;
   --secondary-color: #070a29;
@@ -14,7 +19,22 @@ body{
   margin: 0;
   padding: 0;
   background-color: var(--primary-color);  
-  font-family: 'CustomFont', sans-serif;
+  /* font-family: 'Varela', sans-serif; */
+  /* font-family:'Varela Round', sans-serif; */
+  /* font-family: 'Mona Sans', sans-serif */
+  font-family: 'Shippori Antique B1', sans-serif
+
+
+
+}
+p {
+  font-family: 'Metrophobic', sans-serif;
+}
+.custom-head-font{
+  font-family: 'Solway', serif
+}
+.custom-para-font{
+  font-family: 'Metrophobic', sans-serif;
 }
 .dark body{
   background-color: white;  
