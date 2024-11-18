@@ -56,12 +56,12 @@ const About = () => {
           <div className="w-96 m-auto about-image" style={{ borderRadius: "100px" }}></div>
         </div>
         <div className="md:w-2/4 min-h-96 mt-14 pr-10 max-md:px-4 text-white dark:text-black">
-          <h1 className="transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient flex">
+          <div className="transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient flex justify-center items-center">
             <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
               <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
             </div>
-            <i>About</i>
-          </h1>
+            <i className="mb-2">About</i>
+          </div>
           <p className="text-xl">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, iste magnam. Explicabo dignissimos dolores, temporibus laboriosam aperiam eum. Voluptatum consequuntur ducimus, odit quo blanditiis debitis, dolorem illum nulla consectetur atque dolorum eos harum eum! Ea quia quidem dolor rerum distinctio laudantium, minima atque tenetur quaerat ad, id aperiam consequuntur optio vero dolore rem eius magni? Consequatur qui, eius eligendi aperiam doloribus repellat nam.
           </p>

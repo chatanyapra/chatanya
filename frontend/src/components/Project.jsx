@@ -59,12 +59,12 @@ const Project = () => {
         loading="lazy"
         alt=""
       />
-      <h1 className="transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6">
+      <div className="transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6">
         <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
           <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
         </div>
-        <i>Projects</i>
-      </h1>
+        <i className="mb-2">Projects</i>
+      </div>
       <div className="flex w-full justify-around flex-wrap max-md:pl-4">
         {projects.slice(0, 4).map((project) => (
             <div key={project._id} className="projectCard">

@@ -36,11 +36,11 @@ const Working = () => {
         <section className="text-white dark:text-black py-12 px-6 relative w-full">
             <img src={backgroundLine} className='w-full h-full absolute -left-2 -right-14 -z-10' alt="" />
           <div className="w-[95%] max-sm:w-[100%] ml-3 max-sm:ml-0">
-            <div className='transparent-color light-dark-shadow backdrop-blur-xl bg-black/30 px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex'>
+            <div className='transparent-color light-dark-shadow backdrop-blur-xl bg-black/30 px-4 py-1 text-4xl rounded-2xl justify-center items-center w-fit mb-4 text-gradient h-fit flex'>
               <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
                 <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
               </div>
-              <i>Working</i>
+              <i className="mb-2">Working</i>
             </div>
             <div>
               <h3 className="text-3xl font-bold mt-4">Real Passion to Create Amazing Things</h3>

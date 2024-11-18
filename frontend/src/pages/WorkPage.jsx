@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
-// import SlideImage from "../components/SlideImage";
+import backgroundLine from "../assets/images/background-line.png";
 import "./WorkPage.css";
 import ProjectCard from "../components/ProjectCard";
 import Footer from "../components/Footer";
@@ -15,11 +15,11 @@ const WorkPage = () => {
   const { id } = useParams();
   // const slideImageRef = useRef(null);
   const projectCardRefs = useRef([]);
-  
+
   const [projectName, setProjectName] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
   const [techStacks, setTechStacks] = useState([]);
-  
+
   useEffect(() => {
     setTechStacks([]);
     setProjectName("");
@@ -108,7 +108,7 @@ const WorkPage = () => {
   const { projects } = useDataContext();
 
   return (
-    <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
+    <div className="z-10 h-full min-h-screen w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
       {projectLongDescription && (
         <>
           <div className="w-[95%] min-h-96 transparent-color light-dark-shadow rounded-[50px] flex max-md:flex-col justify-between p-10 ">
@@ -121,13 +121,13 @@ const WorkPage = () => {
               <SlideImage />
             </div> */}
           </div>
-          
+
           <div className="w-full">
-            <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6">
+            <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6 justify-center items-center">
               <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
                 <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
               </div>
-              <i> Tech Stack</i>
+              <i className="mb-2"> Tech Stack</i>
             </div>
           </div>
 
@@ -136,26 +136,26 @@ const WorkPage = () => {
           </div>
         </>
       )}
-      
-      <div className="w-full">
-        <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex ml-6">
+      <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
+        <img src={backgroundLine} className='w-full h-full absolute -left-2 -right-14' loading="lazy" alt="" />
+        <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6">
           <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
             <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
           </div>
-          <i> Projects</i>
+          <i className="mb-2"> Projects</i>
         </div>
-      </div>
 
-      <div className="flex w-full justify-around flex-wrap">
-        {projects.map((project, index) => (
-          <div
-            key={project._id}
-            className="projectCard" // Ensure class name matches GSAP target selector
-            ref={(el) => (projectCardRefs.current[index] = el)}
-          >
-            <ProjectCard project={project} src={"work"} />
-          </div>
-        ))}
+        <div className="flex w-full justify-around flex-wrap">
+          {projects.map((project, index) => (
+            <div
+              key={project._id}
+              className="projectCard" // Ensure class name matches GSAP target selector
+              ref={(el) => (projectCardRefs.current[index] = el)}
+            >
+              <ProjectCard project={project} src={"work"} />
+            </div>
+          ))}
+        </div>
       </div>
 
       <Footer />
