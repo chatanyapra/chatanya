@@ -195,13 +195,20 @@ const BlogEdit = () => {
         </form>
       </div>
 
-      <h1 className="text-3xl font-bold text-left mb-6 mt-24 dark:text-black text-white">
-        Blogs
-      </h1>
-      <div className="flex w-full justify-around max-lg:flex-col md:flex-wrap max-md:px-1">
-        {blogs.map((blog) => (
-          <BlogCard key={blog._id} blog={blog} src={"blogedit"} />
-        ))}
+      <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
+        <div className='transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6'>
+          <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
+            <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
+          </div>
+          <i className="mb-2">Blogs</i>
+        </div>
+        <div className='flex w-full justify-around max-lg:flex-col md:flex-wrap max-md:px-1'>
+          {blogs.slice(0, 4).map((blog) => (
+            <div key={blog._id} className='blogCard'>
+              <BlogCard blog={blog} src={"blogs"} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -76,7 +76,7 @@ const AboutPage = () => {
       style={{ maxWidth: "1600px" }}>
       {/* ---------content------------ */}
       <div className="w-full flex justify-evenly max-md:items-center z-10 max-md:flex-col text-white dark:text-black">
-        <div className="w-[52%] max-md:w-[98%] min-h-[450px] overflow-hidden max-md:h-auto transparent-color md:rounded-[50px] rounded-t-[50px] p-6 border-b-0 relative light-dark-shadow">
+        <div className="w-[52%] max-md:w-[98%] min-h-[450px] overflow-hidden max-md:h-auto transparent-color md:rounded-[50px] rounded-t-[50px] p-6 border-b-0 relative big-screen-light-dark-shadow" style={{}}>
           <h1 className="text-5xl mt-4">Hello,</h1>
           <h1 className="text-5xl pt-4">I&apos;m Chatanya</h1>
           <p className="pt-4 text-gray-300 dark:text-gray-800">
@@ -86,7 +86,7 @@ const AboutPage = () => {
             I am currently working as a Freelance Developer and a Full Stack Developer Intern and I am open to new opportunities. I have a healthy obsession of learning new everyday which makes a better developer and a better Athlete. I love playing Football.
           </p>
         </div>
-        <div className="w-[34%] max-md:w-[98%] h-auto transparent-color md:rounded-[50px] rounded-b-[50px] overflow-hidden flex justify-center items-center light-dark-shadow">
+        <div className="w-[34%] max-md:w-[98%] h-auto transparent-color md:rounded-[50px] rounded-b-[50px] overflow-hidden flex justify-center items-center big-screen-light-dark-shadow">
           <img src={image2} className="m-auto h-full max-h-[450px]" alt="" />
         </div>
       </div>

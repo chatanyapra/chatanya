@@ -255,13 +255,24 @@ const ProjectEdit = () => {
         </form>
       </div>
 
-      <h1 className="text-3xl font-bold text-left mb-6 mt-24 dark:text-black text-white">
-        Projects
-      </h1>
-      <div className="flex w-full justify-around flex-wrap max-md:pl-4">
-        {projects.map((project) => (
-          <ProjectCard key={project._id} project={project} src={"projectedit"} />
-        ))}
+      <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
+        <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6">
+          <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
+            <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
+          </div>
+          <i className="mb-2"> Projects</i>
+        </div>
+
+        <div className="flex w-full justify-around flex-wrap">
+          {projects.map((project) => (
+            <div
+              key={project._id}
+              className="projectCard"
+            >
+              <ProjectCard project={project} src={"work"} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

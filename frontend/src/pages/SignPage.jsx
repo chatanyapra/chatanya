@@ -80,7 +80,7 @@ const SignPage = () => {
     };
 
     return (
-        <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:bg-white dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
+        <div className="z-10 h-full min-h-screen mb-20 w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12"
             style={{ maxWidth: "1600px" }}>
             <Toaster />
             <div className="signpage-container">

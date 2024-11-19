@@ -24,7 +24,7 @@ const Footer = () => {
                     pratapchatanya@gmail.com
                 </a>
             </div>
-            <div className='absolute bottom-4 max-sm:w-full right-4 flex max-sm:flex-col  text-4xl max-sm:mb-10'>
+            <div className='absolute bottom-4 max-sm:w-full right-4 flex max-sm:flex-col  text-4xl'>
                 <ul className="example-2">
                     <li className="icon-content">
                         <a
