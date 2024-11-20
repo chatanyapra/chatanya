@@ -18,7 +18,7 @@ const ProjectEdit = () => {
   const [projectLongDescription, setProjectLongDescription] = useState("");
   const [projectLink, setProjectLink] = useState("");
   const [techStacks, setTechStacks] = useState([""]);
-  const [projectImages, setProjectImages] = useState([""]);
+  const [projectImages, setProjectImages] = useState([]);
   const [existingImages, setExistingImages] = useState([]);
   
 
@@ -239,8 +239,7 @@ const ProjectEdit = () => {
               {projectImages.map((image, index) => (
                 <img
                   key={index}
-                  src={image.url}  // Use the temporary preview URL
-                  alt={`Project Image ${index + 1}`}
+                  src={image.url}
                   className="w-20 h-20 object-cover rounded-md border-gray-500 border"
                   loading="lazy"
                 />
@@ -269,7 +268,7 @@ const ProjectEdit = () => {
               key={project._id}
               className="projectCard"
             >
-              <ProjectCard project={project} src={"work"} />
+              <ProjectCard project={project} src={`projectedit`} />
             </div>
           ))}
         </div>

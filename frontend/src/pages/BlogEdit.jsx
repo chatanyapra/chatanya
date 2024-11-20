@@ -184,6 +184,7 @@ const BlogEdit = () => {
                   src={image.url}  // Use the temporary preview URL
                   alt={`Blog Image ${index + 1}`}
                   className="w-20 h-20 object-cover rounded-md border-gray-500 border"
+                  loading="lazy"
                 />
               ))}
             </div>
@@ -205,7 +206,7 @@ const BlogEdit = () => {
         <div className='flex w-full justify-around max-lg:flex-col md:flex-wrap max-md:px-1'>
           {blogs.slice(0, 4).map((blog) => (
             <div key={blog._id} className='blogCard'>
-              <BlogCard blog={blog} src={"blogs"} />
+              <BlogCard blog={blog} src={"blogedit"} />
             </div>
           ))}
         </div>
