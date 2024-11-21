@@ -76,7 +76,7 @@ function ProfileDropdown() {
                             </>
                         )
                         }
-                        <button onClick={toggleDarkMode} className="w-full px-4 py-1 text-left text-gray-200 dark:text-gray-700 hover:bg-gray-500 flex justify-between items-center">
+                        <button onClick={toggleDarkMode} className="w-full px-4 pb-1.5 text-left text-gray-200 dark:text-gray-700 hover:bg-gray-500 flex justify-between items-center">
                             <div className='pt-1.5'>Mode</div> 
                             <div>
                                 <ToggleButton />
