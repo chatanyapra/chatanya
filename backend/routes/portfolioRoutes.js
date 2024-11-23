@@ -9,22 +9,33 @@ import {
     getProjects,
     uploadProject,
     uploadBlog,
+    getBlogComment,
+    addBlogComment,
+    addProjectComment,
+    getProjectComment,
 } from "../controller/portfolioController.js";
 import protectRoute from "../middleware/protectRoute.js";
-import upload from "../middleware/fileUpload.js"; // Middleware for file uploads
+import upload from "../middleware/fileUpload.js"; 
 
 const router = express.Router();
 
 // Blog Routes
-router.get("/blogs/:id", getBlogById);                // Get a single blog by ID
-router.get("/blogs", getBlogs);                       // Get all blogs
-router.put("/blogs/:id", protectRoute, upload.array('files'), modifyBlog); // Modify an existing blog
-router.post("/blogs", protectRoute, upload.array('files'), uploadBlog);    // Upload a new blog
+router.get("/blogs/:id", getBlogById);  
+router.get("/blogs", getBlogs); 
+router.put("/blogs/:id", protectRoute, upload.array('files'), modifyBlog); 
+router.post("/blogs", protectRoute, upload.array('files'), uploadBlog); 
 
+// Blog comments
+router.get("/blogcomments/:id", getBlogComment); 
+router.post("/blogcomment/:id", protectRoute, addBlogComment); 
+
+// Project comments
+router.get("/projectcomments/:id", getProjectComment);
+router.post("/projectcomment/:id", protectRoute, addProjectComment); 
 // Project Routes
-router.get("/projects/:id", getProjectById);          // Get a single project by ID
-router.get("/projects", getProjects);                 // Get all projects
-router.put("/projects/:id", protectRoute, upload.array('files'), modifyProject); // Modify an existing project
-router.post("/projects", protectRoute, upload.array('files'), uploadProject);    // Upload a new project
+router.get("/projects/:id", getProjectById); 
+router.get("/projects", getProjects); 
+router.put("/projects/:id", protectRoute, upload.array('files'), modifyProject); 
+router.post("/projects", protectRoute, upload.array('files'), uploadProject); 
 
 export default router;

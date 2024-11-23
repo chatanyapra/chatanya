@@ -3,6 +3,8 @@ import fs from "fs";
 import Project from "../models/projectModel.js";
 import Blog from "../models/BlogModel.js";
 import asyncHandler from "express-async-handler";
+import ProjectComment from "../models/projectComment.js";
+import BlogComment from "../models/blogComment.js";
 
 export const modifyBlog = asyncHandler(async (req, res) => {
     try {
@@ -61,13 +63,9 @@ export const modifyBlog = asyncHandler(async (req, res) => {
 
 export const getBlogById = asyncHandler(async (req, res) => {
     try {
-        const { id: blogId } = req.params;
-
-        // Find a single blog by ID where isDeleted is false
-        // const blog = await Blog.findOne({ _id: blogId, isDeleted: false });
+        const { id: blogId } = req.params; 
         const blog = await Blog.findOne({ _id: blogId });
-
-        // Check if the blog was found
+        
         if (!blog) {
             return res.status(404).json({ success: false, message: "Blog not found or has been deleted" });
         }
@@ -93,18 +91,143 @@ export const getBlogs = asyncHandler(async (req, res) => {
     }
 });
 
+export const addBlogComment = asyncHandler(async (req, res) => {
+    try {
+        const { id: blogId } = req.params;
+        const { commentText } = req.body;
+        const senderId = req.user._id;
+        
+        if (!commentText || commentText.trim().length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Comment text cannot be empty."
+            });
+        }
+        if (commentText.length < 5) {
+            return res.status(400).json({
+                success: false,
+                message: "Comment text must be at least 5 characters long."
+            });
+        }
+        
+        const blogComment = new BlogComment({
+            blogId,
+            userId: senderId,
+            comment: commentText.trim()
+        });
+        await blogComment.save();
+
+        res.status(200).json({ success: true, data: blogComment });
+    } catch (error) {
+        console.error("Error adding blog comment:", error.message, error.stack);
+        res.status(500).json({ success: false, message: "Server Error", error });
+    }
+});
+
+
+export const getBlogComment = asyncHandler(async (req, res) => {
+    const {id: blogId} = req.params;
+    try {
+        const comments = await BlogComment.find({ blogId, isDeleted: false })
+            .populate('userId', 'username image')
+            .exec();
+        console.log("Fetched Comments:", comments);
+        if (!comments) {
+            return res.status(404).json({ success: false, message: "Comments not found or has been deleted" });
+        }
+        res.status(200).json({
+            success: true,
+            data: comments
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error
+        });
+    }
+});
+// project controllers------------
+export const addProjectComment = asyncHandler(async (req, res) => {
+    try {
+        const { id: projectId } = req.params; 
+        const { commentText } = req.body;
+        const senderId = req.user._id;
+        const project = await Project.findOne({ _id: projectId });
+
+        if (!project) {
+            return res.status(404).json({ success: false, message: "Project not found or has been deleted" });
+        }
+
+        if (!commentText || commentText.trim().length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Comment text cannot be empty."
+            });
+        }
+        if (commentText.length < 5) {
+            return res.status(400).json({
+                success: false,
+                message: "Comment text must be at least 5 characters long."
+            });
+        }
+
+        const projectComment = new ProjectComment({
+            projectId,
+            userId: senderId,
+            comment: commentText.trim()
+        });
+
+        await projectComment.save();
+
+        res.status(200).json({
+            success: true,
+            data: projectComment
+        });
+    } catch (error) {
+        console.error("Error adding project comment:", error.message, error.stack);
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error
+        });
+    }
+});
+
+export const getProjectComment = asyncHandler(async (req, res) => {
+    try {
+        const { id: projectId } = req.params;  
+
+        const comments = await ProjectComment.find({ projectId, isDeleted: false })
+            .populate('userId', 'username image') 
+            .exec();
+
+        console.log(`Fetched Comments for Project ${projectId}:`, comments);
+
+        res.status(200).json({
+            success: true,
+            data: comments
+        });
+    } catch (error) {
+        console.error("Error fetching project comments by ID:", error.message, error.stack);
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error
+        });
+    }
+});
+
 
 export const getProjectById = asyncHandler(async (req, res) => {
     try {
         const { id: projectId } = req.params;
-
-        // Find a single blog by ID where isDeleted is false
-        // const project = await Project.findOne({ _id: projectId, isDeleted: false });
+        
         const project = await Project.findOne({ _id: projectId });
 
-        // Check if the blog was found
         if (!project) {
-            return res.status(404).json({ success: false, message: "Blog not found or has been deleted" });
+            return res.status(404).json({ success: false, message: "Project not found or has been deleted" });
         }
 
         res.status(200).json({ success: true, data: project });
@@ -127,6 +250,8 @@ export const getProjects= asyncHandler(async (req, res) => {
         res.status(500).json({ success: false, message: "Server Error", error });
     }
 });
+
+
 export const modifyProject = asyncHandler(async (req, res) => {
     try {
         const { id: projectId } = req.params;

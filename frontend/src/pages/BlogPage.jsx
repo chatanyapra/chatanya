@@ -6,14 +6,19 @@ import BlogCard from "../components/BlogCard";
 import { useDataContext } from "../context/DataContext";
 import backgroundLine from "../assets/images/background-line.png";
 import Footer from "../components/Footer";
+import CommentSection from "../components/CommentSection";
+import useAddBlogComment from "../hooks/useAddBlogComment";
+import useGetBlogComments from "../hooks/useGetBlogComments";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const BlogPage = () => {
   const { blogs } = useDataContext();
-  const { id } = useParams();
+  const { id } = useParams(null);
   const [projectName, setProjectName] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
+  const{loadingBlog, addBlogComment} =  useAddBlogComment();
+  const { loadingComments, comments,  fetchBlogComments } = useGetBlogComments();
 
   useEffect(() => {
     setProjectName("");
@@ -80,6 +85,17 @@ const BlogPage = () => {
     };
   }, [blogs]);
 
+  const handleCommentSubmit = async (commentText) => {
+    if(id){
+      await addBlogComment({blogId: id, commentText});
+    }
+  }
+  useEffect(() => {
+    if (id) {
+      fetchBlogComments(id);
+    }
+  }, [id]);
+
   return (
     <div className="z-10 h-full min-h-screen w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
         {projectLongDescription && (
@@ -90,6 +106,11 @@ const BlogPage = () => {
             </div>
           </div>
         )}
+
+        
+      {id && (
+        <CommentSection onSubmit={handleCommentSubmit} loadingData={loadingBlog} loadingComments={loadingComments} comments={comments} placeholder="Write your project comment..."/>
+      )}
 
       <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
         <img src={backgroundLine} className='w-full h-full absolute -left-2 -right-14' loading="lazy" alt="" />

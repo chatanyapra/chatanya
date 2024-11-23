@@ -8,17 +8,18 @@ import Footer from "../components/Footer";
 import { useDataContext } from "../context/DataContext";
 import { useParams } from "react-router-dom";
 import IconsImage from "../components/IconsImage";
+import CommentSection from "../components/CommentSection";
+import useAddProjectComment from "../hooks/useAddProjectComment";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WorkPage = () => {
   const { id } = useParams();
-  // const slideImageRef = useRef(null);
   const projectCardRefs = useRef([]);
 
   const [projectName, setProjectName] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
-  const [techStacks, setTechStacks] = useState([]);
+  const [ techStacks, setTechStacks] = useState([]);
 
   useEffect(() => {
     setTechStacks([]);
@@ -47,25 +48,7 @@ const WorkPage = () => {
   }, [id]);
 
   useEffect(() => {
-    // if (slideImageRef.current) {
-    //   gsap.fromTo(
-    //     slideImageRef.current,
-    //     { x: 100, opacity: 0 },
-    //     {
-    //       x: 0,
-    //       opacity: 1,
-    //       duration: 1.5,
-    //       ease: "power2.out",
-    //       scrollTrigger: {
-    //         trigger: slideImageRef.current,
-    //         start: "top 90%",
-    //         toggleActions: "play none none reverse",
-    //       },
-    //     }
-    //   );
-    // }
-
-    // GSAP animation for project cards (similar to BlogPage animation)
+    
     const cards = gsap.utils.toArray(".projectCard");
     const animations = cards.map((card, index) =>
       gsap.fromTo(
@@ -73,7 +56,7 @@ const WorkPage = () => {
         {
           opacity: 0,
           scale: 0.8,
-          x: index % 2 === 0 ? -200 : 200, // Alternating x-position for staggered effect
+          x: index % 2 === 0 ? -200 : 200, 
           y: 40,
         },
         {
@@ -106,6 +89,14 @@ const WorkPage = () => {
   }, [projectCardRefs]);
 
   const { projects } = useDataContext();
+  const{loadingProject, addProjectComment} =  useAddProjectComment();
+  const handleCommentSubmit = async (commentText) => {
+    console.log("commentText"+ commentText);
+    
+    if(id){
+      await addProjectComment({projectId: id, commentText});
+    }
+  }
 
   return (
     <div className="z-10 h-full min-h-screen w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
@@ -136,6 +127,10 @@ const WorkPage = () => {
           </div>
         </>
       )}
+      {id && (
+        <CommentSection onSubmit={handleCommentSubmit} loadingData={loadingProject} placeholder="Write your project comment..."/>
+      )}
+
       <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
         <img src={backgroundLine} className='w-full h-full absolute -left-2 -right-14' loading="lazy" alt="" />
         <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6">
@@ -149,7 +144,7 @@ const WorkPage = () => {
           {projects.map((project, index) => (
             <div
               key={project._id}
-              className="projectCard" // Ensure class name matches GSAP target selector
+              className="projectCard" 
               ref={(el) => (projectCardRefs.current[index] = el)}
             >
               <ProjectCard project={project} src={"work"} />
