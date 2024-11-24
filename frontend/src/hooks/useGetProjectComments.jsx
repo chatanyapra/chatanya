@@ -1,19 +1,19 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const useGetBlogComments = () => {
+const useGetProjectComments = () => {
   const [loadingComments, setLoadingComments] = useState(false);
   const [comments, setComments] = useState([]);
 
-  const fetchBlogComments = async (blogId) => {
-    if (!blogId) {
-      toast.error("Blog ID is required to fetch comments.");
+  const fetchProjectComments = async (projectId) => {
+    if (!projectId) {
+      toast.error("Project ID is required to fetch comments.");
       return;
     }
 
     setLoadingComments(true);
     try {
-      const response = await fetch(`/api/portfolio/blogcomments/${blogId}`, {
+      const response = await fetch(`/api/portfolio/projectcomments/${projectId}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -34,7 +34,7 @@ const useGetBlogComments = () => {
     }
   };
 
-  return { loadingComments, comments, setComments, fetchBlogComments };
+  return { loadingComments, comments, setComments, fetchProjectComments };
 };
 
-export default useGetBlogComments;
+export default useGetProjectComments;

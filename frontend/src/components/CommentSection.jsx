@@ -86,30 +86,34 @@ const CommentSection = ({ onSubmit, loadingData, loadingComments, comments, plac
             )}
 
             <div className="mt-8">
-                <h3 className="text-xl font-medium mb-4">Comments</h3>
-                <div className="space-y-4 sm:pl-6 mt-10 mb-6">
-                    {loadingComments && <p>Loading comments...</p>}
-                    {comments && comments.length > 0 ? (
-                        comments.map((c, index) => (
-                            <div key={index} className="relative border-2 border-gray-400 sm:p-4 px-3 py-2 rounded-r-[50px] rounded-bl-[50px] max-sm:rounded-tl-[4px] shadow-md mb-10">
-                                <div className="sm:absolute relative sm:-top-8 -left-6 sm:border-2 max-sm:ml-3 sm:dark:bg-white sm:bg-black border-gray-400  w-fit min-w-96 min-h-14 rounded-[40px] flex p-2 items-center">
-                                    <img src={c.userId?.image ? c.userId.image : "//picsum.photos/1920/1080"} className="w-12 h-12 rounded-full" alt="" />
-                                    <div className="px-4 w-full overflow-hidden">
-                                        <h4 className="text-base font-semibold capitalize">{c.userId?.username}</h4>
+                <h3 className="text-xl font-medium mb-3">Comments</h3>
+                <div className="  max-h-[450px] custom-scrollbar pt-4 w-full">
+                    <div className="space-y-4 sm:pl-6 mb-6 mx-auto">
+                        {loadingComments && <p>Loading comments...</p>}
+                        {comments && comments.length > 0 ? (
+                            comments.map((c, index) => (
+                                <div key={index} className="py-4">
+                                    <div className="relative border-2 border-gray-400 sm:p-4 px-3 py-2 rounded-r-[50px] rounded-bl-[50px] max-sm:rounded-tl-[4px] shadow-md ">
+                                        <div className="sm:absolute relative sm:-top-8 -left-6 sm:border-2 max-sm:ml-3 sm:dark:bg-white sm:bg-black border-gray-400  w-fit min-w-96 min-h-14 rounded-[40px] flex p-2 items-center">
+                                            <img src={c.userId?.image ? c.userId.image : "//picsum.photos/1920/1080"} className="w-12 h-12 rounded-full" alt="" />
+                                            <div className="px-4 w-full overflow-hidden">
+                                                <h4 className="text-base font-semibold capitalize">{c.userId?.username}</h4>
+                                            </div>
+                                        </div>
+                                        <div className="w-[94%] h-[2px] mx-auto rounded-[100%] bg-white dark:bg-gray-400 mb-2 max-sm:block hidden"></div>
+                                        <div className="sm:mt-8 -mt-2 pl-5 overflow-hidden">
+                                            <p className="text-white dark:text-black mt-1 max-sm:text-gray-200 text-wrap">{c.comment}</p>
+                                            <span className="text-xs text-gray-300 dark:text-gray-600 float-end px-5 py-2">
+                                                {formatToCustomDate(c.createdAt)}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="w-[94%] h-[2px] mx-auto rounded-[100%] bg-white dark:bg-gray-400 mb-2 max-sm:block hidden"></div>
-                                <div className="sm:mt-8 -mt-2 pl-5 overflow-hidden">
-                                    <p className="text-white dark:text-black mt-1 max-sm:text-gray-200 text-wrap">{c.comment}</p>
-                                    <span className="text-xs text-gray-300 dark:text-gray-600 float-end px-5 py-2">
-                                        {formatToCustomDate(c.createdAt)}
-                                    </span>
-                                </div>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No comments to display.</p>
-                    )}
+                            ))
+                        ) : (
+                            <p>No comments to display.</p>
+                        )}
+                    </div>
                 </div>
             </div>
         </form>

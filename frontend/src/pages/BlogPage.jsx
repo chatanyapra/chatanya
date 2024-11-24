@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import CommentSection from "../components/CommentSection";
 import useAddBlogComment from "../hooks/useAddBlogComment";
 import useGetBlogComments from "../hooks/useGetBlogComments";
+import { useAuthContext } from "../context/AuthContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,7 +19,8 @@ const BlogPage = () => {
   const [projectName, setProjectName] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
   const{loadingBlog, addBlogComment} =  useAddBlogComment();
-  const { loadingComments, comments,  fetchBlogComments } = useGetBlogComments();
+  const { loadingComments, comments, setComments,  fetchBlogComments } = useGetBlogComments();
+  const {authUser}  = useAuthContext();
 
   useEffect(() => {
     setProjectName("");
@@ -87,7 +89,13 @@ const BlogPage = () => {
 
   const handleCommentSubmit = async (commentText) => {
     if(id){
-      await addBlogComment({blogId: id, commentText});
+      const tempComment = {
+        userId: { image: (authUser?.image ? authUser.image : "//picsum.photos/1920/1080"), username: authUser?.username }, // Replace with actual user data if available
+        comment: commentText,
+        createdAt: new Date().toISOString(),
+      };
+      setComments((prev) => [tempComment, ...prev]);
+      await addBlogComment({ blogId: id, commentText });
     }
   }
   useEffect(() => {

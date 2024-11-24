@@ -130,8 +130,9 @@ export const getBlogComment = asyncHandler(async (req, res) => {
     try {
         const comments = await BlogComment.find({ blogId, isDeleted: false })
             .populate('userId', 'username image')
+            .sort({ createdAt: -1 }) // Sort by creation date in descending order
             .exec();
-        console.log("Fetched Comments:", comments);
+            
         if (!comments) {
             return res.status(404).json({ success: false, message: "Comments not found or has been deleted" });
         }
@@ -200,11 +201,14 @@ export const getProjectComment = asyncHandler(async (req, res) => {
         const { id: projectId } = req.params;  
 
         const comments = await ProjectComment.find({ projectId, isDeleted: false })
-            .populate('userId', 'username image') 
-            .exec();
+        .populate('userId', 'username image') 
+        .sort({ createdAt: -1 }) 
+        .exec();
 
         console.log(`Fetched Comments for Project ${projectId}:`, comments);
-
+        if (!comments) {
+            return res.status(404).json({ success: false, message: "Comments not found or has been deleted" });
+        }
         res.status(200).json({
             success: true,
             data: comments

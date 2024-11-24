@@ -10,16 +10,21 @@ import { useParams } from "react-router-dom";
 import IconsImage from "../components/IconsImage";
 import CommentSection from "../components/CommentSection";
 import useAddProjectComment from "../hooks/useAddProjectComment";
+import useGetProjectComments from "../hooks/useGetProjectComments";
+import { useAuthContext } from "../context/AuthContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const WorkPage = () => {
   const { id } = useParams();
   const projectCardRefs = useRef([]);
+  const{loadingProject, addProjectComment} =  useAddProjectComment();
+  const { loadingComments, comments, setComments, fetchProjectComments } = useGetProjectComments();
 
   const [projectName, setProjectName] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
   const [ techStacks, setTechStacks] = useState([]);
+  const {authUser}  = useAuthContext();
 
   useEffect(() => {
     setTechStacks([]);
@@ -89,14 +94,22 @@ const WorkPage = () => {
   }, [projectCardRefs]);
 
   const { projects } = useDataContext();
-  const{loadingProject, addProjectComment} =  useAddProjectComment();
   const handleCommentSubmit = async (commentText) => {
-    console.log("commentText"+ commentText);
-    
     if(id){
+      const tempComment = {
+        userId: { image: (authUser?.image ? authUser.image : "//picsum.photos/1920/1080"), username: authUser?.username }, // Replace with actual user data if available
+        comment: commentText,
+        createdAt: new Date().toISOString(),
+      };
+      setComments((prev) => [tempComment, ...prev]);
       await addProjectComment({projectId: id, commentText});
     }
   }
+  useEffect(() => {
+    if (id) {
+      fetchProjectComments(id);
+    }
+  }, [id]);
 
   return (
     <div className="z-10 h-full min-h-screen w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
@@ -128,7 +141,7 @@ const WorkPage = () => {
         </>
       )}
       {id && (
-        <CommentSection onSubmit={handleCommentSubmit} loadingData={loadingProject} placeholder="Write your project comment..."/>
+        <CommentSection onSubmit={handleCommentSubmit} loadingData={loadingProject} loadingComments={loadingComments} comments={comments} placeholder="Write your project comment..."/>
       )}
 
       <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>

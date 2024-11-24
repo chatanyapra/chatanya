@@ -63,6 +63,32 @@ p {
   height: 1000px;
   background: var(--shape-circle)
 }
+.custom-scrollbar {
+  /* Applying custom scrollbar styles */
+  overflow-y: scroll; /* Enable vertical scrolling */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Slimmer scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1); /* Light blur effect for track */
+  border-radius: 8px;
+  backdrop-filter: blur(4px); /* Apply blur effect on track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3); /* Darker blur effect for thumb */
+  border-radius: 10px;
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Add a border to make thumb stand out */
+  backdrop-filter: blur(6px); /* Apply blur effect on thumb */
+  transition: background 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5); /* Change thumb color on hover */
+}
 @keyframes marquee {
   0% {
     transform: translateX(0%);
