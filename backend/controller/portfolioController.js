@@ -149,7 +149,46 @@ export const getBlogComment = asyncHandler(async (req, res) => {
         });
     }
 });
-// project controllers------------
+
+export const deleteBlogComment = asyncHandler(async (req, res) => {
+    try {
+        const { id: commentId } = req.params;
+
+        const comment = await BlogComment.findById(commentId);
+        if (!comment || comment.isDeleted) {
+            return res.status(404).json({ success: false, message: "Comment not found or already deleted" });
+        }
+
+        // Update the isDeleted flag
+        comment.isDeleted = true;
+        await comment.save();
+
+        res.status(200).json({ success: true, message: "Blog comment deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting blog comment:", error.message);
+        res.status(500).json({ success: false, message: "Server Error", error });
+    }
+});
+
+export const deleteProjectComment = asyncHandler(async (req, res) => {
+    try {
+        const { id: commentId } = req.params;
+
+        const comment = await ProjectComment.findById(commentId);
+        if (!comment || comment.isDeleted) {
+            return res.status(404).json({ success: false, message: "Comment not found or already deleted" });
+        }
+        comment.isDeleted = true;
+        await comment.save();
+
+        res.status(200).json({ success: true, message: "Project comment deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting project comment:", error.message);
+        res.status(500).json({ success: false, message: "Server Error", error });
+    }
+});
+
+
 export const addProjectComment = asyncHandler(async (req, res) => {
     try {
         const { id: projectId } = req.params; 

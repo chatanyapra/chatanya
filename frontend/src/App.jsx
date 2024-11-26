@@ -12,7 +12,6 @@ import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import { useAuthContext } from './context/AuthContext';
-import CommentSection from './components/CommentSection';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -52,7 +51,6 @@ function App() {
               <Route path="/blogedit" element={authUser?.isAdmin ? <BlogEdit/> : <BlogPage/> } />
               <Route path="/blogedit/:id" element={authUser?.isAdmin ? <BlogEdit/> : <BlogPage/> } />
               <Route path="/*" element={<Home />} />
-              <Route path="/comments" element={<CommentSection />} />
             </Routes>
           </div>
           <Toaster />

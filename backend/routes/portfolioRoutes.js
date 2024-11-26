@@ -13,6 +13,8 @@ import {
     addBlogComment,
     addProjectComment,
     getProjectComment,
+    deleteBlogComment,
+    deleteProjectComment,
 } from "../controller/portfolioController.js";
 import protectRoute from "../middleware/protectRoute.js";
 import upload from "../middleware/fileUpload.js"; 
@@ -28,10 +30,13 @@ router.post("/blogs", protectRoute, upload.array('files'), uploadBlog);
 // Blog comments
 router.get("/blogcomments/:id", getBlogComment); 
 router.post("/blogcomment/:id", protectRoute, addBlogComment); 
+router.put("/blogcomment/:id", protectRoute, deleteBlogComment); 
 
 // Project comments
 router.get("/projectcomments/:id", getProjectComment);
 router.post("/projectcomment/:id", protectRoute, addProjectComment); 
+router.put("/projectcomment/:id", protectRoute, deleteProjectComment); 
+
 // Project Routes
 router.get("/projects/:id", getProjectById); 
 router.get("/projects", getProjects); 
