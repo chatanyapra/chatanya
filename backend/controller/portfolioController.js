@@ -170,6 +170,91 @@ export const deleteBlogComment = asyncHandler(async (req, res) => {
     }
 });
 
+export const toggleBlogCommentVisibility = asyncHandler(async (req, res) => {
+    try {
+        const { id: commentId } = req.params; // Extract comment ID from params
+        const { showOnHomepage } = req.body; // New visibility status from request body
+
+        // Validate input
+        if (typeof showOnHomepage !== "boolean") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid visibility status. It must be a boolean value.",
+            });
+        }
+
+        // Find and update the comment's visibility
+        const updatedComment = await BlogComment.findByIdAndUpdate(
+            commentId,
+            { $set: { showOnHomepage } },
+            { new: true }
+        );
+
+        if (!updatedComment) {
+            return res.status(404).json({
+                success: false,
+                message: "Comment not found.",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Blog comment visibility updated successfully.",
+            data: updatedComment,
+        });
+    } catch (error) {
+        console.error("Error updating blog comment visibility:", error.message, error.stack);
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error,
+        });
+    }
+});
+
+export const toggleProjectCommentVisibility = asyncHandler(async (req, res) => {
+    try {
+        const { id: commentId } = req.params; // Extract comment ID from params
+        const { showOnHomepage } = req.body; // New visibility status from request body
+
+        // Validate input
+        if (typeof showOnHomepage !== "boolean") {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid visibility status. It must be a boolean value.",
+            });
+        }
+
+        // Find and update the comment's visibility
+        const updatedComment = await ProjectComment.findByIdAndUpdate(
+            commentId,
+            { $set: { showOnHomepage } },
+            { new: true }
+        );
+
+        if (!updatedComment) {
+            return res.status(404).json({
+                success: false,
+                message: "Comment not found.",
+            });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "Project comment visibility updated successfully.",
+            data: updatedComment,
+        });
+    } catch (error) {
+        console.error("Error updating project comment visibility:", error.message, error.stack);
+        res.status(500).json({
+            success: false,
+            message: "Server Error",
+            error,
+        });
+    }
+});
+
+
 export const deleteProjectComment = asyncHandler(async (req, res) => {
     try {
         const { id: commentId } = req.params;

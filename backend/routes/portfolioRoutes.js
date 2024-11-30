@@ -15,6 +15,8 @@ import {
     getProjectComment,
     deleteBlogComment,
     deleteProjectComment,
+    toggleBlogCommentVisibility, 
+    toggleProjectCommentVisibility, 
 } from "../controller/portfolioController.js";
 import protectRoute from "../middleware/protectRoute.js";
 import upload from "../middleware/fileUpload.js"; 
@@ -30,12 +32,18 @@ router.post("/blogs", protectRoute, upload.array('files'), uploadBlog);
 // Blog comments
 router.get("/blogcomments/:id", getBlogComment); 
 router.post("/blogcomment/:id", protectRoute, addBlogComment); 
-router.put("/blogcomment/:id", protectRoute, deleteBlogComment); 
+router.patch("/blogcomment/:id/delete", protectRoute, deleteBlogComment); 
+
+// Toggle blog comment visibility
+router.patch("/blogcomment/:id/visibility", protectRoute, toggleBlogCommentVisibility);  // New route for toggling visibility
 
 // Project comments
 router.get("/projectcomments/:id", getProjectComment);
 router.post("/projectcomment/:id", protectRoute, addProjectComment); 
-router.put("/projectcomment/:id", protectRoute, deleteProjectComment); 
+router.patch("/projectcomment/:id/delete", protectRoute, deleteProjectComment); 
+
+// Toggle project comment visibility
+router.patch("/projectcomment/:id/visibility", protectRoute, toggleProjectCommentVisibility);  // New route for toggling visibility
 
 // Project Routes
 router.get("/projects/:id", getProjectById); 

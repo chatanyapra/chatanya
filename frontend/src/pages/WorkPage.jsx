@@ -105,6 +105,43 @@ const WorkPage = () => {
       await addProjectComment({projectId: id, commentText});
     }
   }
+
+  
+
+  const handleToggleVisibility = async (commentId, currentVisibility) => {
+    try {
+      const response = await fetch(`/api/portfolio/projectcomment/${commentId}/visibility`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ showOnHomepage: !currentVisibility }), 
+      });
+      const result = await response.json();
+      if (result.success) {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment._id === commentId ? { ...comment, showOnHomepage: !currentVisibility } : comment
+          )
+        );        
+      }
+    } catch (error) {
+      console.error("Error toggling visibility:", error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const response = await fetch(`/api/portfolio/projectcomment/${commentId}/delete`, {
+        method: "PATCH",
+      });
+      const result = await response.json();
+      if (result.success) {
+        setComments((prevComments) => prevComments.filter((comment) => comment._id !== commentId));
+      }
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       fetchProjectComments(id);
@@ -120,10 +157,6 @@ const WorkPage = () => {
               <h1 className="text-4xl pb-10 text-white dark:text-black">{projectName}</h1>
               <p className="text-gray-400 dark:text-gray-700" dangerouslySetInnerHTML={{ __html: projectLongDescription }}></p>
             </div>
-
-            {/* <div ref={slideImageRef} className="relative ml-5">
-              <SlideImage />
-            </div> */}
           </div>
 
           <div className="w-full">
@@ -141,7 +174,13 @@ const WorkPage = () => {
         </>
       )}
       {id && (
-        <CommentSection onSubmit={handleCommentSubmit} loadingData={loadingProject} loadingComments={loadingComments} comments={comments} placeholder="Write your project comment..."/>
+        <CommentSection onSubmit={handleCommentSubmit} 
+        loadingData={loadingProject} 
+        loadingComments={loadingComments} 
+        comments={comments} 
+        placeholder="Write your project comment..."
+        onToggleVisibility={handleToggleVisibility}
+        onDeleteComment={handleDeleteComment}/>
       )}
 
       <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>

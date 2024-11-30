@@ -18,9 +18,9 @@ const BlogPage = () => {
   const { id } = useParams(null);
   const [projectName, setProjectName] = useState("");
   const [projectLongDescription, setProjectLongDescription] = useState("");
-  const{loadingBlog, addBlogComment} =  useAddBlogComment();
-  const { loadingComments, comments, setComments,  fetchBlogComments } = useGetBlogComments();
-  const {authUser}  = useAuthContext();
+  const { loadingBlog, addBlogComment } = useAddBlogComment();
+  const { loadingComments, comments, setComments, fetchBlogComments } = useGetBlogComments();
+  const { authUser } = useAuthContext();
 
   useEffect(() => {
     setProjectName("");
@@ -88,16 +88,51 @@ const BlogPage = () => {
   }, [blogs]);
 
   const handleCommentSubmit = async (commentText) => {
-    if(id){
+    if (id) {
       const tempComment = {
-        userId: { image: (authUser?.image ? authUser.image : "//picsum.photos/1920/1080"), username: authUser?.username }, // Replace with actual user data if available
+        userId: { image: (authUser?.image ? authUser.image : "//picsum.photos/1920/1080"), username: authUser?.username },
         comment: commentText,
         createdAt: new Date().toISOString(),
       };
       setComments((prev) => [tempComment, ...prev]);
       await addBlogComment({ blogId: id, commentText });
     }
-  }
+  };
+
+  const handleToggleVisibility = async (commentId, currentVisibility) => {
+    try {
+      const response = await fetch(`/api/portfolio/blogcomment/${commentId}/visibility`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ showOnHomepage: !currentVisibility }), 
+      });
+      const result = await response.json();
+      if (result.success) {
+        setComments((prevComments) =>
+          prevComments.map((comment) =>
+            comment._id === commentId ? { ...comment, showOnHomepage: !currentVisibility } : comment
+          )
+        );        
+      }
+    } catch (error) {
+      console.error("Error toggling visibility:", error);
+    }
+  };
+
+  const handleDeleteComment = async (commentId) => {
+    try {
+      const response = await fetch(`/api/portfolio/blogcomment/${commentId}/delete`, {
+        method: "PATCH",
+      });
+      const result = await response.json();
+      if (result.success) {
+        setComments((prevComments) => prevComments.filter((comment) => comment._id !== commentId));
+      }
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+    }
+  };
+
   useEffect(() => {
     if (id) {
       fetchBlogComments(id);
@@ -106,18 +141,25 @@ const BlogPage = () => {
 
   return (
     <div className="z-10 h-full min-h-screen w-full relative dark:text-black overflow-hidden flex flex-col items-center m-auto pt-32 max-md:pt-12" style={{ maxWidth: "1600px" }}>
-        {projectLongDescription && (
-          <div className="w-[95%] min-h-96 transparent-color rounded-[50px] flex max-md:flex-col justify-between p-10 my-10 light-dark-shadow">
-            <div>
-              <h1 className="text-4xl pb-10 text-white dark:text-black">{projectName}</h1>
-              <p className="text-gray-400 dark:text-gray-700" dangerouslySetInnerHTML={{ __html: projectLongDescription }}></p>
-            </div>
+      {projectLongDescription && (
+        <div className="w-[95%] min-h-96 transparent-color rounded-[50px] flex max-md:flex-col justify-between p-10 my-10 light-dark-shadow">
+          <div>
+            <h1 className="text-4xl pb-10 text-white dark:text-black">{projectName}</h1>
+            <p className="text-gray-400 dark:text-gray-700" dangerouslySetInnerHTML={{ __html: projectLongDescription }}></p>
           </div>
-        )}
+        </div>
+      )}
 
-        
       {id && (
-        <CommentSection onSubmit={handleCommentSubmit} loadingData={loadingBlog} loadingComments={loadingComments} comments={comments} placeholder="Write your project comment..."/>
+        <CommentSection
+          onSubmit={handleCommentSubmit}
+          loadingData={loadingBlog}
+          loadingComments={loadingComments}
+          comments={comments}
+          placeholder="Write your project comment..."
+          onToggleVisibility={handleToggleVisibility}
+          onDeleteComment={handleDeleteComment}
+        />
       )}
 
       <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
@@ -136,7 +178,7 @@ const BlogPage = () => {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

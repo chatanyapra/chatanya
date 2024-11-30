@@ -89,6 +89,22 @@ p {
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.5); /* Change thumb color on hover */
 }
+/* Light mode styles */
+.swal-popup-light {
+  background-color: white;
+  border-color: #d1d5db; /* border-gray-300 */
+  color: #1f2937; /* text-gray-800 */
+  border-radius: 0.75rem; /* rounded-xl */
+}
+
+/* Dark mode styles */
+.dark .swal-popup-dark {
+  background-color: #2d3748; /* bg-gray-800 */
+  border-color: #4a5568; /* border-gray-700 */
+  color: white;
+  border-radius: 0.75rem; /* rounded-xl */
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0%);
