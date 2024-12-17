@@ -12,11 +12,13 @@ import { Toaster } from 'react-hot-toast';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import Preloader from './components/Preloader';
 import { useAuthContext } from './context/AuthContext';
+import useUserVisit from './hooks/useUserVisit';
 
 function App() {
   const [loading, setLoading] = useState(true);
   const location = useLocation();
   const {authUser} = useAuthContext();
+  useUserVisit();
   
 
   useEffect(() => {

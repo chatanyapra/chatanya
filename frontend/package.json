@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@tinymce/tinymce-react": "^5.1.1",
+    "chatting-app-mern": "file:..",
     "dotenv": "^16.4.5",
     "gsap": "^3.12.5",
     "latestportfolio": "file:",

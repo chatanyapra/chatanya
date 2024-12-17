@@ -116,25 +116,25 @@ const CommentSection = ({
             )}
 
             <div className="mt-8">
-                <h3 className="text-xl font-medium mb-3">Comments</h3>
-                <div className="max-h-[450px] custom-scrollbar pt-4 w-full">
+                <h3 className="text-xl font-medium mb-1">Comments</h3>
+                <div className="max-h-[450px] custom-scrollbar pt-1 sm:pt-4 w-full overflow-x-hidden">
                     <div className="space-y-4 sm:pl-6 mb-6 mx-auto">
                         {loadingComments && <p>Loading comments...</p>}
 
                         {comments && comments.length > 0 ? (
                             comments
-                                .filter(c => authUser?.isAdmin || c.showOnHomepage) // Check if user is not logged in, admin, or showOnHomepage is true
+                                .filter(c => authUser?.isAdmin || c.showOnHomepage) 
                                 .map((c, index) => (
-                                    <div key={index} className="py-4">
-                                        <div className="relative border-2 border-gray-400 sm:p-4 px-3 py-2 rounded-r-[50px] rounded-bl-[50px] max-sm:rounded-tl-[4px] shadow-md">
-                                            <div className="sm:absolute relative sm:-top-8 -left-6 sm:border-2 max-sm:ml-3 sm:dark:bg-white sm:bg-black border-gray-400 w-fit min-w-96 min-h-14 rounded-[40px] flex p-2 items-center">
+                                    <div key={index}  className="sm:py-4">
+                                        <div className="relative border-2 w-full border-gray-400 sm:p-4 px-3 py-2 rounded-r-[50px] rounded-bl-[50px] max-sm:rounded-tl-[4px] shadow-md">
+                                            <div className="sm:absolute relative sm:-top-8 -left-6 sm:border-2 max-sm:ml-3 sm:dark:bg-white sm:bg-black border-gray-400 w-full sm:w-fit sm:min-w-96 min-h-14 rounded-[40px] flex p-2 items-center">
                                                 <img
                                                     src={c.userId?.image || "//picsum.photos/1920/1080"}
                                                     className="w-12 h-12 rounded-full"
                                                     alt=""
                                                 />
-                                                <div className="px-4 w-full overflow-hidden flex justify-between items-center">
-                                                    <h4 className="text-base font-semibold capitalize">
+                                                <div className="sm:px-4 w-full overflow-hidden flex justify-between items-center">
+                                                    <h4 className="text-base font-semibold capitalize max-sm:pl-2">
                                                         {c.userId?.username}
                                                     </h4>
                                                     {authUser?.isAdmin && (
