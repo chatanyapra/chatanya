@@ -77,8 +77,8 @@ const AboutPage = () => {
       {/* ---------content------------ */}
       <div className="w-full flex justify-evenly max-md:items-center z-10 max-md:flex-col text-white dark:text-black">
         <div className="w-[52%] max-md:w-[98%] min-h-[450px] overflow-hidden max-md:h-auto transparent-color md:rounded-[50px] rounded-t-[50px] p-6 border-b-0 relative big-screen-light-dark-shadow" style={{}}>
-          <h1 className="text-5xl mt-4">Hello,</h1>
-          <h1 className="text-5xl pt-4">I&apos;m Chatanya</h1>
+          <h1 className="text-4xl sm:text-5xl mt-4 font-bold">Hello,</h1>
+          <h1 className="text-4xl sm:text-5xl pt-4 font-bold">I&apos;m Chatanya</h1>
           <p className="pt-4 text-gray-300 dark:text-gray-800">
             I am a full stack developer with a passion for creating beautiful and functional web applications. I chose this as a career because I love to create nice stuff. Creativity is the key. Now I target building some awesome stuff that can help people in their daily life.
           </p>
@@ -178,7 +178,7 @@ const AboutPage = () => {
               <i className="mb-2">Working</i>
             </div>
             <div>
-              <h3 className="text-3xl font-bold mt-4">Real Passion to Create Amazing Things</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold mt-4">Real Passion to Create Amazing Things</h3>
               <p className="text-white dark:text-black mt-4 mb-8">
                 Dliquip ex ea commo do conse namber onequa ute irure dolor in reprehenderit in voluptate.
               </p>

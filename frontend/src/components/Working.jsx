@@ -43,7 +43,7 @@ const Working = () => {
               <i className="mb-2">Working</i>
             </div>
             <div>
-              <h3 className="text-3xl font-bold mt-4">Real Passion to Create Amazing Things</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold mt-4">Real Passion to Create Amazing Things</h3>
               <p className="text-white dark:text-black mt-4 mb-8">
                 Dliquip ex ea commo do conse namber onequa ute irure dolor in reprehenderit in voluptate.
               </p>

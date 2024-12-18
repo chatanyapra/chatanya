@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types"; 
 import "./Project.css";
 
-const ProjectCard = ({ project, src }) => {
+const ProjectCard = ({ project, src, count }) => {
     return (
         <div className="transparent-color light-dark-shadow card-container my-5 w-[550px] flex max-md:w-[95%] max-md:h-[350px] max-sm:h-[300px] mx-auto overflow-hidden relative group">
             <div className="card-project md:w-[450px] max-md:w-[85%] max-md:h-[350px] max-sm:h-[300px] ">
@@ -19,7 +19,9 @@ const ProjectCard = ({ project, src }) => {
             </div>
             <div className="flex m-auto flex-col h-full justify-around text-white dark:text-black">
                 <div className="rounded-full flex justify-center items-center mx-auto">
-                    <div className="bg-gradient-radial w-10 md:w-12 h-10 md:h-12 m-auto rounded-full transition-transform transform group-hover:scale-125 duration-500 ease-in-out"></div>
+                    <div className="bg-gradient-radial w-10 md:w-12 h-10 md:h-12 m-auto rounded-full transition-transform transform group-hover:scale-125 duration-500 ease-in-out flex justify-center items-center font-bold text-3xl">
+                        {count}
+                    </div>
                 </div>
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                     <FaGithub className="text-4xl max-sm:text-3xl cursor-pointer" />
@@ -35,6 +37,7 @@ const ProjectCard = ({ project, src }) => {
 // Define PropTypes for ProjectCard
 ProjectCard.propTypes = {
     src: PropTypes.string.isRequired,
+    count: PropTypes.number.isRequired,
     project: PropTypes.shape({
         title: PropTypes.string.isRequired,
         shortDescription: PropTypes.string,

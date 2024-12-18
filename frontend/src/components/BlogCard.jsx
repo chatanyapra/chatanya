@@ -4,7 +4,7 @@ import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import "./About.css";
 
-const BlogCard = ({ blog, src }) => {
+const BlogCard = ({ blog, src, count }) => {
 
   const images = blog?.images.map(image => image.url) || []; // Map blog images to URL array
   const [mainImageIndex, setMainImageIndex] = useState(0); // Index for main image
@@ -52,7 +52,7 @@ const BlogCard = ({ blog, src }) => {
           <Link to={`/${src}/${blog._id}`}>
               <FaArrowUpRightFromSquare className="text-3xl max-sm:text-2xl cursor-pointer mx-auto" />
           </Link>
-          <div className="text-5xl font-bold mt-5 max-sm:text-3xl">1</div>
+          <div className="text-5xl font-bold mt-5 max-sm:text-3xl">{count}</div>
           <div className="text-2xl font-bold max-sm:text-base">Blog</div>
         </div>
       </div>
@@ -61,6 +61,7 @@ const BlogCard = ({ blog, src }) => {
 };
 BlogCard.propTypes = {
   src: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
   blog: PropTypes.shape({
       title: PropTypes.string.isRequired,
       shortDescription: PropTypes.string,

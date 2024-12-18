@@ -66,9 +66,9 @@ const Project = () => {
         <i className="mb-2">Projects</i>
       </div>
       <div className="flex w-full justify-around flex-wrap max-md:pl-4">
-        {projects.slice(0, 4).map((project) => (
+        {projects.slice(0, 4).map((project, index) => (
             <div key={project._id} className="projectCard">
-                <ProjectCard project={project} src={"work"} />
+                <ProjectCard project={project} src={"work"} count={index + 1} />
             </div>
         ))}
 

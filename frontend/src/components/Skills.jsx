@@ -43,7 +43,7 @@ const Skills = () => {
                     </div>
                     <i className="mb-2">My Skills</i>
                 </div>
-                <h3 className="text-3xl font-bold my-4 ml-3">I Develop Skills Regularly</h3>
+                <h3 className="text-2xl sm:text-3xl font-bold my-4 ml-3">I Develop Skills Regularly</h3>
                 <p className="text-white dark:text-black mb-8 ml-3">
                     Dliquip ex ea commo do conse namber onequa ute irure dolor in reprehenderit in voluptate.
                 </p>

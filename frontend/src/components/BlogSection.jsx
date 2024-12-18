@@ -56,9 +56,9 @@ const BlogSection = () => {
                 <i className="mb-2">Blogs</i>
             </div>
             <div className='flex w-full justify-around max-lg:flex-col md:flex-wrap max-md:px-1'>
-            {blogs.slice(0, 4).map((blog) => (
+            {blogs.slice(0, 4).map((blog, index) => (
                 <div key={blog._id} className='blogCard'>
-                    <BlogCard blog={blog} src={"blogs"} />
+                    <BlogCard blog={blog} src={"blogs"} count={index + 1}/>
                 </div>
             ))}
             </div>

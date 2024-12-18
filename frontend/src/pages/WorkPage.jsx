@@ -185,7 +185,7 @@ const WorkPage = () => {
 
       <div className='w-full mx-auto flex flex-col relative blogsection-bg-design mt-10'>
         <img src={backgroundLine} className='w-full h-full absolute -left-2 -right-14' loading="lazy" alt="" />
-        <div className="mt-16 z-10 transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6">
+        <div className="transparent-color light-dark-shadow px-4 py-1 text-4xl rounded-2xl w-fit mb-4 text-gradient h-fit flex justify-center items-center ml-6">
           <div className="rounded-full w-7 h-7 flex justify-center items-center mr-2 mt-1">
             <div className="bg-gradient-radial w-5 h-5 m-auto rounded-full transition-transform transform hover:scale-125 duration-300 ease-in-out"></div>
           </div>
@@ -199,7 +199,7 @@ const WorkPage = () => {
               className="projectCard" 
               ref={(el) => (projectCardRefs.current[index] = el)}
             >
-              <ProjectCard project={project} src={"work"} />
+              <ProjectCard project={project} src={"work"} count={index + 1}/>
             </div>
           ))}
         </div>
